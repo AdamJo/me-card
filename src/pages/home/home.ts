@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { NFC, Ndef } from 'ionic-native';
 
-import { NfcDataComponent } from './../nfc-data/nfc-data.component';
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
