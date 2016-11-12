@@ -6,6 +6,8 @@ import { LoginPage } from '../pages/login/login';
 
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
+import { AuthService } from '../services/auth.service'
+
 // Must export the config
 const firebaseConfig = {
   apiKey: 'AIzaSyDrRnguFUwKGBzaTOcBcj-bC0vBxx6sDao',
@@ -36,7 +38,7 @@ const myFirebaseAuthConfig = {
     HomePage,
     LoginPage
   ],
-  providers: []
+  providers: [AuthService]
 })
 
 export class AppModule {}

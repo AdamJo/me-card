@@ -7,6 +7,8 @@ import { AngularFire, AngularFireAuth, FirebaseAuth, FirebaseAuthState, AuthProv
 
 import { LoginPage } from '../login/login';
 
+import { AuthService } from '../../services/auth.service'
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -18,7 +20,8 @@ export class HomePage implements OnInit {
     public platform: Platform,
     public af: AngularFire,
     public navController:NavController,
-    public auth$: FirebaseAuth) {
+    public auth$: FirebaseAuth,
+    public authService: AuthService) {
     // this.af.auth.subscribe(auth => {
     //   // console.log(auth.google.photoURL);
     //   if (auth) {
@@ -41,22 +44,27 @@ export class HomePage implements OnInit {
     // NFC.share([message1]).then(() => alert('success')).catch(() => alert('error'));
   }
 
-  login() {
-    this.signIn(AuthProviders.Twitter)
-    // this.af.auth.login().then((data) => console.log(data));
-    // this.af.database.object('users').set(this.af.auth.getAuth().uid);
+  loginGithub() {
+    this.authService.signInWithGithub()
+  }
+
+  loginTwitter() {
+    this.authService.signInWithTwitter()
+  }
+
+  loginGoogle() {
+    this.authService.signInWithGoogle()
+  }
+
+  loginFacebook() {
+    this.authService.signInWithFacebook()
   }
 
   logout() {
-     this.af.auth.logout();
+     this.authService.signOut();
   }
 
   authCheck() {
-    console.log(this.af.auth.getAuth())
-  }
-
-  signIn(provider: number) {
-    return this.auth$.login({provider})
-      .catch(error => console.log('ERROR @ AuthService#signIn() :', error));
+    this.authService.authDetails();
   }
 }

@@ -1,4 +1,4 @@
-import { AngularFire, AngularFireAuth, FirebaseAuth, FirebaseAuthState, AuthProviders  } from 'angularfire2';
+import { FirebaseAuth, FirebaseAuthState, AuthProviders  } from 'angularfire2';
 
 import { Injectable } from '@angular/core';
 
@@ -16,16 +16,15 @@ export class AuthService {
     return this.authState !== null;
   }
 
-  
   get id(): string {
     return this.authenticated ? this.authState.uid : '';
   }
 
   signIn(provider: number): firebase.Promise<FirebaseAuthState> {
     return this.auth$.login({provider})
+      .then((yeup) => console.log('logged in: ', yeup))
       .catch(error => console.log('ERROR @ AuthService#signIn() :', error));
   }
-
 
   signInWithGithub(): firebase.Promise<FirebaseAuthState> {
     return this.signIn(AuthProviders.Github);
@@ -39,7 +38,15 @@ export class AuthService {
     return this.signIn(AuthProviders.Twitter);
   }
 
+  signInWithFacebook(): firebase.Promise<FirebaseAuthState> {
+    return this.signIn(AuthProviders.Facebook);
+  }
+
   signOut(): void {
     this.auth$.logout();
+  }
+
+  authDetails(): void {
+    console.log(this.authState)
   }
 }
