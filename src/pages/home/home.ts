@@ -1,47 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild  } from '@angular/core';
 
-import { Platform, NavController } from 'ionic-angular';
-import { NFC, Ndef } from 'ionic-native';
-
-import { AngularFire, AngularFireAuth, FirebaseAuth, FirebaseAuthState, AuthProviders  } from 'angularfire2';
+import { Platform, Nav, NavController } from 'ionic-angular';
 
 import { LoginPage } from '../login/login';
+import { NFCPage } from '../nfc/nfc'
 
 import { AuthService } from '../../services/auth.service'
+
+export interface PageInterface {
+  title: string;
+  component: any;
+  icon: string;
+  logsOut?: boolean;
+  index?: number;
+}
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 
-export class HomePage implements OnInit {
+export class HomePage {
+  @ViewChild(Nav) nav: Nav;
+
+
+  loggedInPages: PageInterface[] = [
+    { title: 'Account', component: LoginPage, index: 1, icon: 'person' },
+    { title: 'NFC', component: NFCPage, index: 2, icon: 'card' },
+    
+  ];
 
   constructor(
     public platform: Platform,
-    public af: AngularFire,
-    public navController:NavController,
-    public auth$: FirebaseAuth,
-    public authService: AuthService) {
-    // this.af.auth.subscribe(auth => {
-    //   // console.log(auth.google.photoURL);
-    //   if (auth) {
-    //     navController.push(LoginPage)
-
-    //   } else {
-    //     console.log('not logged in');
-    //   }
-    // });
-  }
-
-  ngOnInit() {
-    this.platform.ready().then(() => {
-      this.pushUrl();
-    });
-  }
-
-  pushUrl() {
-    // let message1 = Ndef.uriRecord('https://google.com')
-    // NFC.share([message1]).then(() => alert('success')).catch(() => alert('error'));
+    public authService: AuthService,
+    public navCtrl: NavController) {
   }
 
   loginGithub() {
@@ -66,5 +58,20 @@ export class HomePage implements OnInit {
 
   authCheck() {
     this.authService.authDetails();
+  }
+
+  openPage(page: PageInterface) {
+    // the nav component was found using @ViewChild(Nav)
+    // reset the nav to remove previous pages and only have this page
+    // we wouldn't want the back button to show in this scenario
+    this.navCtrl.push(page.component);
+
+    if (page.logsOut === true) {
+      console.log('inside pagelogout')
+      // Give the menu time to close before changing to logged out
+      setTimeout(() => {
+        this.logout();
+      }, 1000);
+    }
   }
 }

@@ -1,29 +1,26 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      NFC Login YEUP
+      MY CARD
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-card id="login">
-    <ion-card-header>
-      <h2><span class="light-text">NFC</span><strong>Login</strong></h2>
-      <!--For some reason ion-img is not displaying the image-->
-      <!--<ion-img src="build/img/csc-logo.png"></ion-img>-->
-    </ion-card-header>
-    <ion-card-content>
+  <ion-list>
+    <ion-list-header>
+      Navigate
+    </ion-list-header>
+    <button ion-item menuClose *ngFor="let p of loggedInPages" (click)="openPage(p)">
+      <ion-icon item-left [name]="p.icon"></ion-icon>
+      {{p.title}}
+    </button>
+  </ion-list>
 
-    <div class="col" padding center>
-      <!--<button full class="button button-stable button-clear eag-home-button eag-full-width" (click)="loginNfc()">-->
-      <!--</button>    -->
-    </div>
-    </ion-card-content>
-  </ion-card>
-  
-  <div> {{ (af.auth | async)?.uid }} </div>
-  <button (click)="loginGithub()">Login</button>
-  <button (click)="logout()">Logout</button>
-  <button (click)="authCheck()">auth</button>
+  <div>{{authService.id}}</div>
+  <button *ngIf="!authService.authenticated" ion-button (click)="loginGoogle()">Login</button>
+  <button *ngIf="authService.authenticated" ion-button (click)="loginGoogle()">Settings</button>
+  <button ion-button (click)="logout()">Logout</button>
+  <button ion-button (click)="authCheck()">auth</button>
 </ion-content>
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
