@@ -34,7 +34,7 @@
     "zone.js": "0.6.21"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "0.0.39",
+    "@ionic/app-scripts": "0.0.43",
     "typescript": "2.0.6"
   },
   "description": "card: An Ionic project",
