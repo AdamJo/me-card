@@ -23,8 +23,16 @@ export class AuthService {
 
   signIn(provider: number): firebase.Promise<FirebaseAuthState> {
     return this.auth$.login({provider})
-      .then((yeup) => {
-        console.log('logged in: ', yeup)
+      .then((loggedIn) => {
+        console.log(loggedIn);
+        this.af.database.object(`/users/${this.id}`).update(
+          {
+            displayName: loggedIn.auth.displayName,
+            email: loggedIn.auth.email,
+            photoUrl: loggedIn.auth.photoURL,
+            providerId: loggedIn.auth.providerId
+          }
+        );
       })
       .catch(error => console.log('ERROR @ AuthService#login() :', error));
   }
@@ -52,4 +60,7 @@ export class AuthService {
   authDetails(): void {
     console.log(this.authState);
   }
+
+  saveUser() {}
+
 }
