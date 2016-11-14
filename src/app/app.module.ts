@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
+
 import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
+import { SettingsPage } from '../pages/settings/settings';
+import { NFCPage } from '../pages/nfc/nfc';
+import { AboutPage } from '../pages/about/about';
+import { AccountPage } from '../pages/account/account';
 
-import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { AngularFireModule, AuthMethods } from 'angularfire2';
 
-import { AuthService } from '../services/auth.service'
+import { AuthService } from '../shared/services/auth.service'
 
 // Must export the config
 const firebaseConfig = {
@@ -18,7 +22,6 @@ const firebaseConfig = {
 };
 
 const myFirebaseAuthConfig = {
-  providers: [AuthProviders.Google, AuthProviders.Github],
   method: AuthMethods.Popup
 }
 
@@ -26,7 +29,10 @@ const myFirebaseAuthConfig = {
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    SettingsPage,
+    NFCPage,
+    AccountPage,
+    AboutPage
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig ),
@@ -36,7 +42,10 @@ const myFirebaseAuthConfig = {
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    SettingsPage,
+    NFCPage,
+    AccountPage,
+    AboutPage
   ],
   providers: [AuthService]
 })
