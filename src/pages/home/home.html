@@ -18,9 +18,10 @@
   </ion-list>
 
   <div>{{authService.id}}</div>
-  <button *ngIf="!authService.authenticated" ion-button (click)="loginGoogle()">Login</button>
-  <button *ngIf="authService.authenticated" ion-button (click)="loginGoogle()">Settings</button>
+  <button *ngIf="!authService.authenticated" ion-button (click)="loginTwitter()">Login</button>
+  <button *ngIf="authService.authenticated" ion-button>Settings</button>
   <button ion-button (click)="logout()">Logout</button>
   <button ion-button (click)="authCheck()">auth</button>
+  <button ion-button (click)="savedUser()">User?</button>
 </ion-content>
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+<!--<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>-->

@@ -7,15 +7,15 @@ import { Component } from '@angular/core';
   for more info on Angular 2 Components.
 */
 @Component({
-  selector: 'login',
-  templateUrl: 'login.html'
+  selector: 'Settings',
+  templateUrl: 'Settings.html'
 })
-export class LoginPage {
+export class SettingsPage {
 
   text: string;
 
   constructor() {
-    console.log('Hello Login Component');
+    console.log('Hello Settings Component');
     this.text = 'Hello World';
   }
 }

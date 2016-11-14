@@ -1,19 +1,14 @@
-import { Component, ViewChild  } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { Platform, Nav, NavController } from 'ionic-angular';
+import { Platform, NavController } from 'ionic-angular';
 
-import { LoginPage } from '../login/login';
-import { NFCPage } from '../nfc/nfc'
+import { SettingsPage } from '../settings/settings';
+import { NFCPage } from '../nfc/nfc';
+import { AccountPage } from '../account/account';
+import { AboutPage } from '../about/about';
 
-import { AuthService } from '../../services/auth.service'
-
-export interface PageInterface {
-  title: string;
-  component: any;
-  icon: string;
-  logsOut?: boolean;
-  index?: number;
-}
+import { AuthService } from '../../shared/services/auth.service';
+import { PageInterface } from '../../shared/models/page-interface.model'
 
 @Component({
   selector: 'page-home',
@@ -21,14 +16,18 @@ export interface PageInterface {
 })
 
 export class HomePage {
-  @ViewChild(Nav) nav: Nav;
-
 
   loggedInPages: PageInterface[] = [
-    { title: 'Account', component: LoginPage, index: 1, icon: 'person' },
+    { title: 'Account', component: AccountPage, index: 1, icon: 'person' },
     { title: 'NFC', component: NFCPage, index: 2, icon: 'card' },
-    
+    { title: 'Setting', component: SettingsPage, index: 3, icon: 'settings'},
+    { title: 'About', component: AboutPage, icon: 'information'}
   ];
+
+  loggedOutPages: PageInterface[] = [
+    { title: 'Home', component: HomePage, icon: 'home'},
+    { title: 'About', component: AboutPage, icon: 'information'}
+  ]
 
   constructor(
     public platform: Platform,
@@ -61,17 +60,10 @@ export class HomePage {
   }
 
   openPage(page: PageInterface) {
-    // the nav component was found using @ViewChild(Nav)
-    // reset the nav to remove previous pages and only have this page
-    // we wouldn't want the back button to show in this scenario
     this.navCtrl.push(page.component);
+  }
 
-    if (page.logsOut === true) {
-      console.log('inside pagelogout')
-      // Give the menu time to close before changing to logged out
-      setTimeout(() => {
-        this.logout();
-      }, 1000);
-    }
+  savedUser() {
+    this.authService.saveUser();
   }
 }
