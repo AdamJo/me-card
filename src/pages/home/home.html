@@ -7,18 +7,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>
-      Navigate
-    </ion-list-header>
-    <button ion-item menuClose *ngFor="let p of loggedInPages" (click)="openPage(p)">
-      <ion-icon item-left [name]="p.icon"></ion-icon>
-      {{p.title}}
-    </button>
-  </ion-list>
 
   <div>{{authService.id}}</div>
-  <button *ngIf="!authService.authenticated" ion-button (click)="loginTwitter()">Login</button>
+  <button *ngIf="!authService.authenticated" ion-button (click)="loginGoogle()">Login</button>
   <button *ngIf="authService.authenticated" ion-button>Settings</button>
   <button ion-button (click)="logout()">Logout</button>
   <button ion-button (click)="authCheck()">auth</button>

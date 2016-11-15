@@ -8,11 +8,12 @@ import { NFCPage } from '../pages/nfc/nfc';
 import { AboutPage } from '../pages/about/about';
 import { AccountPage } from '../pages/account/account';
 
+import { TabsPage } from '../pages/tabs/tabs';
+
 import { AngularFireModule, AuthMethods } from 'angularfire2';
 
 import { AuthService } from '../shared/services/auth.service'
 
-// Must export the config
 const firebaseConfig = {
   apiKey: 'AIzaSyDrRnguFUwKGBzaTOcBcj-bC0vBxx6sDao',
   authDomain: 'me-card.firebaseapp.com',
@@ -32,7 +33,8 @@ const myFirebaseAuthConfig = {
     SettingsPage,
     NFCPage,
     AccountPage,
-    AboutPage
+    AboutPage,
+    TabsPage
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig ),
@@ -45,7 +47,8 @@ const myFirebaseAuthConfig = {
     SettingsPage,
     NFCPage,
     AccountPage,
-    AboutPage
+    AboutPage,
+    TabsPage
   ],
   providers: [AuthService]
 })

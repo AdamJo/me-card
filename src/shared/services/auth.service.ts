@@ -1,3 +1,4 @@
+import { Events } from 'ionic-angular';
 import { FirebaseAuth, FirebaseAuthState, AuthProviders, AngularFire  } from 'angularfire2';
 import { Injectable } from '@angular/core';
 
@@ -7,7 +8,8 @@ export class AuthService {
 
   constructor(
     public auth$: FirebaseAuth,
-    public af: AngularFire) {
+    public af: AngularFire,
+    public events: Events) {
     auth$.subscribe((state: FirebaseAuthState) => {
       this.authState = state;
     });
@@ -22,6 +24,7 @@ export class AuthService {
   }
 
   signIn(provider: number): firebase.Promise<FirebaseAuthState> {
+    this.events.publish('user:login');
     return this.auth$.login({provider})
       .then((loggedIn) => {
         console.log(loggedIn);
@@ -54,6 +57,7 @@ export class AuthService {
   }
 
   signOut(): void {
+    this.events.publish('user:logout');
     this.auth$.logout();
   }
 
