@@ -26,12 +26,9 @@ export class MyApp {
   ]
 
   loggedInPages: PageInterface[] = [
-    { title: 'Home', component: HomePage, icon: 'home' },
-    { title: 'Account', component: AccountPage, index: 1, icon: 'person' },
-    { title: 'NFC', component: NFCPage, index: 2, icon: 'card' },
-    { title: 'Setting', component: SettingsPage, index: 3, icon: 'settings'},
-    { title: 'Contacts', component: ContactsPage, index: 4, icon: 'contacts'}, 
-    { title: 'About', component: AboutPage, index: 5, icon: 'information'}
+    { title: 'Account', component: AccountPage, icon: 'person' },
+    { title: 'Contacts', component: ContactsPage, icon: 'contacts'},
+    { title: 'Setting', component: SettingsPage, icon: 'settings'}
   ];
 
   loggedOutPages: PageInterface[] = [
@@ -70,13 +67,6 @@ export class MyApp {
     } else {
       this.nav.setRoot(page.component);
     }
-
-    // if (page.logsOut === true) {
-    //   // Give the menu time to close before changing to logged out
-    //   setTimeout(() => {
-    //     this.userData.logout();
-    //   }, 1000);
-    // }
   }
 
   listenToLoginEvents() {
