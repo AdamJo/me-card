@@ -1,31 +1,35 @@
 import { Component, ViewChild  } from '@angular/core';
-import { Events, MenuController, Nav , Platform } from 'ionic-angular';
+import { Events, MenuController,  NavController , Platform, Tabs } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
-import { HomePage } from '../pages/home/home';
-import { SettingsPage } from '../pages/settings/settings';
-import { NFCPage } from '../pages/nfc/nfc';
-import { AccountPage } from '../pages/account/account';
-import { AboutPage } from '../pages/about/about';
-import { ContactsPage } from '../pages/contacts/contacts';
+import { HomePage } from '../home/home';
+import { SettingsPage } from '../settings/settings';
+import { AccountPage } from '../account/account';
+import { AboutPage } from '../about/about';
+import { ContactsPage } from '../contacts/contacts';
 
-import { PageInterface } from '../shared/models/page-interface.model';
-import { AuthService } from '../shared/services/auth.service';
+import { PageInterface } from '../../shared/models/page-interface.model';
+import { AuthService } from '../../shared/services/auth.service';
 
-import { TabsPage } from '../pages/tabs/tabs';
+import { TabsPage } from '../tabs/tabs';
 
+/*
+  Generated class for the SideMenu page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+*/
 @Component({
-  templateUrl: 'app.component.html'
+  selector: 'page-side-menu',
+  templateUrl: 'side-menu.html'
 })
-
-export class MyApp {
-  @ViewChild(Nav) nav: Nav;
-  // @ViewChild('content') nav: NavController;
-  rootPage: any = TabsPage;
+export class SideMenuPage {
+  @ViewChild('content') nav: NavController;
+  rootPage = TabsPage;
 
   appPages: PageInterface[] = [
-    { title: 'Home', component: TabsPage, icon: 'home'},
-    { title: 'About', component: TabsPage, index: 1, icon: 'information'}
+    { title: 'Home', component: HomePage, icon: 'home'},
+    { title: 'About', component: AboutPage, index: 1, icon: 'information'}
   ]
 
   loggedInPages: PageInterface[] = [
@@ -38,12 +42,10 @@ export class MyApp {
     { title: 'Sign Up', component: HomePage, icon: 'home'},
     { title: 'Login', component: AboutPage, icon: 'information'}
   ];
-
-  constructor(
-    platform: Platform,
+  constructor(public platform: Platform,
     public menu: MenuController,
     public events: Events,
-    public auth: AuthService) {
+    public auth: AuthService,) {
       platform.ready().then(() => {
         // Okay, so the platform is ready and our plugins are available.
         // Here you can do any higher level native things you might need.
@@ -51,14 +53,10 @@ export class MyApp {
         Splashscreen.hide();
       });
       this.listenToLoginEvents();
-  }
-
-  ngAfterViewChecked() {
-    if (this.auth.authenticated) {
-      this.enableMenu(true);
-    } else {
-      this.enableMenu(false);
     }
+
+  ionViewDidLoad() {
+    console.log('Hello SideMenuPage Page');
   }
 
   openPage(page: PageInterface) {
@@ -67,7 +65,6 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     if (page.index) {
       this.nav.setRoot(page.component, {tabIndex: page.index});
-
     } else {
       this.nav.setRoot(page.component);
     }
@@ -91,4 +88,9 @@ export class MyApp {
     this.menu.enable(loggedIn, 'loggedInMenu');
     this.menu.enable(!loggedIn, 'loggedOutMenu');
   }
+
+  switch(one) {
+    console.log(one);
+  }
+
 }

@@ -7,6 +7,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { NFCPage } from '../pages/nfc/nfc';
 import { AboutPage } from '../pages/about/about';
 import { AccountPage } from '../pages/account/account';
+import { ContactsPage } from '../pages/contacts/contacts';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -34,7 +35,8 @@ const myFirebaseAuthConfig = {
     NFCPage,
     AccountPage,
     AboutPage,
-    TabsPage
+    TabsPage,
+    ContactsPage
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig ),
@@ -48,7 +50,7 @@ const myFirebaseAuthConfig = {
     NFCPage,
     AccountPage,
     AboutPage,
-    TabsPage
+    TabsPage,
   ],
   providers: [AuthService]
 })

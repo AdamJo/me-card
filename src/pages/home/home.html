@@ -1,13 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      MY CARD
-    </ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>HOME</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-
   <div>{{authService.id}}</div>
   <button *ngIf="!authService.authenticated" ion-button (click)="loginGoogle()">Login</button>
   <button *ngIf="authService.authenticated" ion-button>Settings</button>

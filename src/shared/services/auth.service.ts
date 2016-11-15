@@ -27,7 +27,6 @@ export class AuthService {
     this.events.publish('user:login');
     return this.auth$.login({provider})
       .then((loggedIn) => {
-        console.log(loggedIn);
         this.af.database.object(`/users/${this.id}`).update(
           {
             displayName: loggedIn.auth.displayName,

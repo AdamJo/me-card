@@ -2,12 +2,8 @@ import { Component } from '@angular/core';
 
 import { NavParams } from 'ionic-angular';
 
-import { HomePage } from '../home/home';
-import { SettingsPage } from '../settings/settings';
-import { NFCPage } from '../nfc/nfc';
-import { AccountPage } from '../account/account';
 import { AboutPage } from '../about/about';
-import { ContactsPage } from '../contacts/contacts';
+import { HomePage } from '../home/home';
 
 
 @Component({
