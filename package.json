@@ -48,5 +48,8 @@
     "ionic-plugin-keyboard",
     "phonegap-nfc"
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "ios",
+    "android"
+  ]
 }
