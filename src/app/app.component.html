@@ -13,23 +13,12 @@
       <ion-list-header>
         Navigate
       </ion-list-header>
-      <button ion-item menuClose *ngFor="let p of appPages" (click)="openPage(p)">
-        <ion-icon item-left [name]="p.icon"></ion-icon>
-        {{p.title}}
-      </button>
-    </ion-list>
-
-    <ion-list>
-      <ion-list-header>
-        Account
-      </ion-list-header>
       <button ion-item menuClose *ngFor="let p of loggedOutPages" (click)="openPage(p)">
         <ion-icon item-left [name]="p.icon"></ion-icon>
         {{p.title}}
       </button>
     </ion-list>
   </ion-content>
-
 </ion-menu>
 
 <!-- logged in menu -->
@@ -44,16 +33,6 @@
   <ion-content class="outer-content">
     <ion-list>
       <ion-list-header>
-        Navigate
-      </ion-list-header>
-      <button ion-item menuClose *ngFor="let p of appPages" (click)="openPage(p)">
-        <ion-icon item-left [name]="p.icon"></ion-icon>
-        {{p.title}}
-      </button>
-    </ion-list>
-
-    <ion-list>
-      <ion-list-header>
         Account
       </ion-list-header>
       <button ion-item menuClose *ngFor="let p of loggedInPages" (click)="openPage(p)">
@@ -61,7 +40,24 @@
         {{p.title}}
       </button>
     </ion-list>
-
+    <ion-list>
+    <ion-list-header>
+      ---
+    </ion-list-header>
+    <button ion-item menuClose *ngFor="let p of other" (click)="openPage(p)">
+      <ion-icon item-left [name]="p.icon"></ion-icon>
+      {{p.title}}
+    </button>
+    </ion-list>
+    <ion-list-header>
+      ---
+    </ion-list-header>
+    <ion-list>
+      <button ion-item menuClose (click)="signOut()">
+        <ion-icon item-left name="log-out"></ion-icon>
+        Sign Out
+      </button>
+    </ion-list>
   </ion-content>
 
 </ion-menu>
