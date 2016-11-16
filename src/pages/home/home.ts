@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { Platform, NavController } from 'ionic-angular';
 
+import { TabsPage } from '../tabs/tabs'; 
+
 import { AuthService } from '../../shared/services/auth.service';
 import { PageInterface } from '../../shared/models/page-interface.model'
 
@@ -27,7 +29,9 @@ export class HomePage {
   }
 
   loginGoogle() {
-    this.authService.signInWithGoogle()
+    this.authService.signInWithGoogle().then(a => {
+      this.navCtrl.push(TabsPage);
+    })
   }
 
   loginFacebook() {
@@ -44,9 +48,5 @@ export class HomePage {
 
   openPage(page: PageInterface) {
     this.navCtrl.push(page.component);
-  }
-
-  savedUser() {
-    this.authService.saveUser();
   }
 }
