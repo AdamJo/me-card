@@ -5,17 +5,25 @@ import { NavParams } from 'ionic-angular';
 import { AboutPage } from '../about/about';
 import { HomePage } from '../home/home';
 
+import { AccountPage } from '../account/account';
+import { SettingsPage } from '../settings/settings';
+import { ContactsPage } from '../contacts/contacts';
+
+import { AuthService } from '../../shared/services/auth.service'
 
 @Component({
   templateUrl: 'tabs.html'
 })
+
 export class TabsPage {
   // set the root pages for each tab
-  tab1Root: any = HomePage;
-  tab2Root: any = AboutPage;
+  tab1Root: any = AccountPage;
+  tab2Root: any = ContactsPage;
+  tab3Root: any = SettingsPage;
+  tab4Root: any = AboutPage;
   mySelectedIndex: number;
 
-  constructor(navParams: NavParams) {
+  constructor(navParams: NavParams, public auth: AuthService) {
     this.mySelectedIndex = navParams.data.tabIndex || 0;
   }
 }

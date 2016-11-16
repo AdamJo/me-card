@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import { MyApp } from './app.component';
 
 import { HomePage } from '../pages/home/home';
@@ -7,9 +8,11 @@ import { SettingsPage } from '../pages/settings/settings';
 import { NFCPage } from '../pages/nfc/nfc';
 import { AboutPage } from '../pages/about/about';
 import { AccountPage } from '../pages/account/account';
+import { DonateBuyPage } from '../pages/donate-buy/donate-buy';
 import { ContactsPage } from '../pages/contacts/contacts';
 
 import { TabsPage } from '../pages/tabs/tabs';
+import { TabsLoggedOutPage } from '../pages/tabs-logged-out/tabs-logged-out';
 
 import { AngularFireModule, AuthMethods } from 'angularfire2';
 
@@ -36,7 +39,9 @@ const myFirebaseAuthConfig = {
     AccountPage,
     AboutPage,
     TabsPage,
-    ContactsPage
+    ContactsPage,
+    TabsLoggedOutPage,
+    DonateBuyPage
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig ),
@@ -51,8 +56,11 @@ const myFirebaseAuthConfig = {
     AccountPage,
     AboutPage,
     TabsPage,
+    ContactsPage,
+    TabsLoggedOutPage,
+    DonateBuyPage
   ],
-  providers: [AuthService]
+  providers: [AuthService, Storage]
 })
 
 export class AppModule {}
