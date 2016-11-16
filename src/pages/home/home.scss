@@ -1,29 +1,34 @@
 page-home {
-
+  
 } 
 
-/*.getstart {
-  background-image: url('../../assets/img/...')
-}*/
-
-.google-sign-in {
-  background-color: #dd4b39;
-  color: white;
-
+.home-page {
+  background-color: lightgray;
 }
 
-.github-sign-in {
-  background-color: #444;
-  color: white;
-  margin: 10px 0;
+.authenticate-list {
 
-  &:hover {
-    background-color: #222;
+  ion-list-header {
+    text-align: center;
+    padding: 0;
   }
 }
 
-.authentication {
-  margin-left: 20px;
+.google-sign-in {
+  color: white;
+  border-bottom: none;
+  border: none;
 }
 
+.authentication {
+  border: none;
+}
 
+.github-sign-in {
+  color: white;
+  margin: 10px 0;
+}
+
+.authentication-name {
+  text-align: center;
+}
