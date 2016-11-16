@@ -1,15 +1,19 @@
 import { Events } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+
 import { FirebaseAuth, FirebaseAuthState, AuthProviders, AngularFire  } from 'angularfire2';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AuthService {
   private authState: FirebaseAuthState = null;
+  HAS_LOGGED_IN = 'hasLoggedIn';
 
   constructor(
     public auth$: FirebaseAuth,
     public af: AngularFire,
-    public events: Events) {
+    public events: Events,
+    public storage: Storage) {
     auth$.subscribe((state: FirebaseAuthState) => {
       this.authState = state;
     });
@@ -27,6 +31,7 @@ export class AuthService {
     this.events.publish('user:login');
     return this.auth$.login({provider})
       .then((loggedIn) => {
+        this.storage.set(this.HAS_LOGGED_IN, true);
         this.af.database.object(`/users/${this.id}`).update(
           {
             displayName: loggedIn.auth.displayName,
@@ -56,6 +61,7 @@ export class AuthService {
   }
 
   signOut(): void {
+    this.storage.remove(this.HAS_LOGGED_IN);
     this.events.publish('user:logout');
     this.auth$.logout();
   }
@@ -64,6 +70,22 @@ export class AuthService {
     console.log(this.authState);
   }
 
-  saveUser() {}
+  setUsername(username) {
+    this.storage.set('username', username);
+  }
+
+  getUsername() {
+    return this.storage.get('username').then((value) => {
+      return value;
+    });
+  }
+
+  hasLoggedIn() {
+    return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
+      return value === true;
+    });
+  }
+
+
 
 }
