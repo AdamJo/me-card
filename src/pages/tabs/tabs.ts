@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 
 import { NavParams } from 'ionic-angular';
 
-import { AboutPage } from '../about/about';
-import { HomePage } from '../home/home';
-
 import { AccountPage } from '../account/account';
 import { SettingsPage } from '../settings/settings';
 import { ContactsPage } from '../contacts/contacts';
@@ -20,7 +17,6 @@ export class TabsPage {
   tab1Root: any = AccountPage;
   tab2Root: any = ContactsPage;
   tab3Root: any = SettingsPage;
-  tab4Root: any = AboutPage;
   mySelectedIndex: number;
 
   constructor(navParams: NavParams, public auth: AuthService) {

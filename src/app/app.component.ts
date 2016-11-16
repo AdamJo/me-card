@@ -2,17 +2,13 @@ import { Component, ViewChild  } from '@angular/core';
 import { Events, MenuController, Nav , Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
-import { HomePage } from '../pages/home/home';
-import { SettingsPage } from '../pages/settings/settings';
-import { NFCPage } from '../pages/nfc/nfc';
-import { AccountPage } from '../pages/account/account';
-import { AboutPage } from '../pages/about/about';
-import { ContactsPage } from '../pages/contacts/contacts';
-
 import { PageInterface } from '../shared/models/page-interface.model';
 import { AuthService } from '../shared/services/auth.service';
 
+import { DonateBuyPage } from '../pages/donate-buy/donate-buy';
+
 import { TabsPage } from '../pages/tabs/tabs';
+import { TabsLoggedOutPage } from '../pages/tabs-logged-out/tabs-logged-out';
 
 @Component({
   templateUrl: 'app.component.html'
@@ -23,21 +19,20 @@ export class MyApp {
   // @ViewChild('content') nav: NavController;
   rootPage: any = TabsPage;
 
-  appPages: PageInterface[] = [
-    { title: 'Home', component: TabsPage, icon: 'home'},
-    { title: 'About', component: TabsPage, index: 1, icon: 'information'}
-  ]
-
   loggedInPages: PageInterface[] = [
-    { title: 'Account', component: AccountPage, icon: 'person' },
-    { title: 'Contacts', component: ContactsPage, icon: 'contacts'},
-    { title: 'Setting', component: SettingsPage, icon: 'settings'}
+    { title: 'Account', component: TabsPage, icon: 'person' },
+    { title: 'Contacts', component: TabsPage, index: 1, icon: 'contacts'},
+    { title: 'Setting', component: TabsPage, index: 2, icon: 'settings'}
   ];
 
   loggedOutPages: PageInterface[] = [
-    { title: 'Sign Up', component: HomePage, icon: 'home'},
-    { title: 'Login', component: AboutPage, icon: 'information'}
+    { title: 'Home', component: TabsLoggedOutPage, icon: 'home'},
+    { title: 'About', component: TabsLoggedOutPage, index: 1, icon: 'information'}
   ];
+
+  other: PageInterface[] = [
+    { title: 'Donate', component: DonateBuyPage, icon: 'information'}
+  ]
 
   constructor(
     platform: Platform,
@@ -50,15 +45,13 @@ export class MyApp {
         StatusBar.styleDefault();
         Splashscreen.hide();
       });
-      this.listenToLoginEvents();
-  }
 
-  ngAfterViewChecked() {
-    if (this.auth.authenticated) {
-      this.enableMenu(true);
-    } else {
-      this.enableMenu(false);
-    }
+      this.auth.hasLoggedIn().then((hasLoggedIn) => {
+        this.enableMenu(hasLoggedIn === true);
+        this.rootPage = hasLoggedIn ? TabsPage : TabsLoggedOutPage;
+      });
+
+      this.listenToLoginEvents();
   }
 
   openPage(page: PageInterface) {
@@ -83,6 +76,7 @@ export class MyApp {
     });
 
     this.events.subscribe('user:logout', () => {
+      this.menu.close();
       this.enableMenu(false);
     });
   }
@@ -90,5 +84,10 @@ export class MyApp {
   enableMenu(loggedIn) {
     this.menu.enable(loggedIn, 'loggedInMenu');
     this.menu.enable(!loggedIn, 'loggedOutMenu');
+  }
+
+  signOut() {
+    this.auth.signOut();
+    this.nav.setRoot(TabsLoggedOutPage);
   }
 }
