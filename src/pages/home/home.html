@@ -7,9 +7,11 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="getstart">
-  <button ion-button (click)="loginGoogle()">Login</button>
-  <button ion-button (click)="logout()">Logout</button>
-  <button ion-button (click)="authCheck()">auth</button>
+<ion-content padding>
+  <ion-col>
+    <button ion-button color="primary" block>
+      <ion-icon name="logo-github"></ion-icon>
+      Login / Signup
+    </button>
+  </ion-col>
 </ion-content>
-<!--<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>-->

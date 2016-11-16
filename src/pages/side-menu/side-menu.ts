@@ -1,5 +1,5 @@
 import { Component, ViewChild  } from '@angular/core';
-import { Events, MenuController,  NavController , Platform, Tabs } from 'ionic-angular';
+import { Events, MenuController,  NavController , Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { HomePage } from '../home/home';

@@ -3,7 +3,7 @@
   "author": "adam.johannesmeyer@gmail.com",
   "homepage": "",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "build": "ionic-app-scripts build",
     "watch": "ionic-app-scripts watch",
