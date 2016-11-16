@@ -8,10 +8,14 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-col>
-    <button ion-button color="primary" block>
-      <ion-icon name="logo-github"></ion-icon>
-      Login / Signup
-    </button>
-  </ion-col>
+  <ion-list>
+  <button ion-item icon-left class="google-sign-in" block (click)="loginGoogle()">
+    <ion-icon item-left name="logo-google"></ion-icon>
+    <span class="authentication">Sign up / Log in with Google</span>
+  </button>
+    <button ion-item icon-left class="github-sign-in" block (click)="loginGithub()">
+      <ion-icon item-left name="logo-github"></ion-icon>
+      <span class="authentication">Sign up / Log in with Github</span>
+    </button>      
+  </ion-list>
 </ion-content>
