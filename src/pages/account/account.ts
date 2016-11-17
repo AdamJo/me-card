@@ -3,12 +3,6 @@ import { NavController } from 'ionic-angular';
 
 import { AuthService } from '../../shared/services/auth.service'
 
-/*
-  Generated class for the Account page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-account',
   templateUrl: 'account.html'
@@ -24,6 +18,7 @@ export class AccountPage {
     this.getUsername();
     this.getEmail();
     this.getPhotoUrl();
+    this.getStuff();
   }
 
   getUsername() {
@@ -41,6 +36,12 @@ export class AccountPage {
   getPhotoUrl() {
     this.auth.getPhotoUrl().then((photoUrl) => {
       this.photoUrl = photoUrl;
+    });
+  }
+
+  getStuff() {
+    this.auth.getStuff().then((stuff) => {
+      console.log(stuff)
     });
   }
 }
