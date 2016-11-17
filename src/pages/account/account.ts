@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
+import { AuthService } from '../../shared/services/auth.service'
+
 /*
   Generated class for the Account page.
 
@@ -12,11 +14,33 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'account.html'
 })
 export class AccountPage {
+  username: string;
+  email: string;
+  photoUrl:string;
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, public auth: AuthService) {}
 
-  ionViewDidLoad() {
-    console.log('Hello AccountPage Page');
+  ngAfterViewInit() {
+    this.getUsername();
+    this.getEmail();
+    this.getPhotoUrl();
   }
 
+  getUsername() {
+    this.auth.getUsername().then((username) => {
+      this.username = username;
+    });
+  }
+
+  getEmail() {
+    this.auth.getEmail().then((email) => {
+      this.email = email;
+    });
+  }
+
+  getPhotoUrl() {
+    this.auth.getPhotoUrl().then((photoUrl) => {
+      this.photoUrl = photoUrl;
+    });
+  }
 }
