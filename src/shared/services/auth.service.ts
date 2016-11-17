@@ -40,6 +40,10 @@ export class AuthService {
             providerId: loggedIn.auth.providerId
           }
         );
+        this.setUsername(loggedIn.auth.displayName);
+        this.setEmail(loggedIn.auth.email);
+        this.setPhotoUrl(loggedIn.auth.photoURL);
+
       })
       .catch(error => console.log('ERROR @ AuthService#login() :', error));
   }
@@ -74,8 +78,28 @@ export class AuthService {
     this.storage.set('username', username);
   }
 
+  setEmail(email) {
+    this.storage.set('email', email);
+  }
+
+  setPhotoUrl(phtoUrl) {
+    this.storage.set('photoUrl', phtoUrl);
+  }
+
   getUsername() {
     return this.storage.get('username').then((value) => {
+      return value;
+    });
+  }
+
+  getEmail() {
+    return this.storage.get('email').then((value) => {
+      return value;
+    });
+  }
+
+  getPhotoUrl() {
+    return this.storage.get('photoUrl').then((value) => {
       return value;
     });
   }
@@ -85,7 +109,4 @@ export class AuthService {
       return value === true;
     });
   }
-
-
-
 }
