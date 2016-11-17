@@ -41,17 +41,11 @@
       </button>
     </ion-list>
     <ion-list>
-    <ion-list-header>
-      ---
-    </ion-list-header>
     <button ion-item menuClose *ngFor="let p of other" (click)="openPage(p)">
       <ion-icon item-left [name]="p.icon"></ion-icon>
       {{p.title}}
     </button>
     </ion-list>
-    <ion-list-header>
-      ---
-    </ion-list-header>
     <ion-list>
       <button ion-item menuClose (click)="signOut()">
         <ion-icon item-left name="log-out"></ion-icon>
@@ -61,7 +55,6 @@
   </ion-content>
 
 </ion-menu>
-
 
 <!-- main navigation -->
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
