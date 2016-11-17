@@ -7,6 +7,8 @@ import { AuthService } from '../shared/services/auth.service';
 
 import { DonateBuyPage } from '../pages/donate-buy/donate-buy';
 
+import { HomePage } from '../pages/home/home';
+
 import { TabsPage } from '../pages/tabs/tabs';
 import { TabsLoggedOutPage } from '../pages/tabs-logged-out/tabs-logged-out';
 
@@ -48,7 +50,7 @@ export class MyApp {
 
       this.auth.hasLoggedIn().then((hasLoggedIn) => {
         this.enableMenu(hasLoggedIn === true);
-        this.rootPage = hasLoggedIn ? TabsPage : TabsLoggedOutPage;
+        this.rootPage = hasLoggedIn ? TabsPage : HomePage;
       });
 
       this.listenToLoginEvents();
@@ -88,6 +90,6 @@ export class MyApp {
 
   signOut() {
     this.auth.signOut();
-    this.nav.setRoot(TabsLoggedOutPage);
+    this.nav.setRoot(HomePage);
   }
 }
