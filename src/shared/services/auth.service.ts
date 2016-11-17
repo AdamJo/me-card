@@ -43,6 +43,7 @@ export class AuthService {
         this.setUsername(loggedIn.auth.displayName);
         this.setEmail(loggedIn.auth.email);
         this.setPhotoUrl(loggedIn.auth.photoURL);
+        this.setStuff();
 
       })
       .catch(error => console.log('ERROR @ AuthService#login() :', error));
@@ -84,6 +85,16 @@ export class AuthService {
 
   setPhotoUrl(phtoUrl) {
     this.storage.set('photoUrl', phtoUrl);
+  }
+
+  setStuff() {
+    this.storage.set('stuff', {one: 'one', two: 'yellow'});
+  }
+
+  getStuff() {
+    return this.storage.get('stuff').then((value) => {
+      return value;
+    });
   }
 
   getUsername() {
