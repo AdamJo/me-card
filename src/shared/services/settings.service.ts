@@ -8,14 +8,7 @@ export class SettingsService {
     
   }
 
-  saveSettings():void {
-  }
-
-  getUserPortrait(): void {
-
-  }
-
-  saveUserPortrait(): void {
-
-  }
+  saveSettings():void {}
+  getUserPortrait(): void {}
+  saveUserPortrait(): void {}
 }
