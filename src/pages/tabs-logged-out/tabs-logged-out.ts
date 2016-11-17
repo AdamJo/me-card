@@ -18,4 +18,3 @@ export class TabsLoggedOutPage {
     this.mySelectedIndex = navParams.data.tabIndex || 0;
   }
 }
-

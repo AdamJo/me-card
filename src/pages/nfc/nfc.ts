@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NFC, Ndef } from 'ionic-native';
-/*
-  Generated class for the NFC page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-nfc',
   templateUrl: 'nfc.html'

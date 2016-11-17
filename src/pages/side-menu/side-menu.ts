@@ -13,12 +13,6 @@ import { AuthService } from '../../shared/services/auth.service';
 
 import { TabsPage } from '../tabs/tabs';
 
-/*
-  Generated class for the SideMenu page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-side-menu',
   templateUrl: 'side-menu.html'
