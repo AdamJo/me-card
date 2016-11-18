@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 
 import { AuthService } from '../../shared/services/auth.service'
 
+import { CreateCardPage } from '../create-card/create-card'
+
 @Component({
   selector: 'page-account',
   templateUrl: 'account.html'
@@ -43,5 +45,9 @@ export class AccountPage {
     this.auth.getStuff().then((stuff) => {
       console.log(stuff)
     });
+  }
+
+  createCard() {
+    this.navCtrl.setRoot(CreateCardPage)
   }
 }

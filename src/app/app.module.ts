@@ -11,6 +11,7 @@ import { AccountPage } from '../pages/account/account';
 import { DonateBuyPage } from '../pages/donate-buy/donate-buy';
 import { ContactsPage } from '../pages/contacts/contacts';
 import { LoginOptionsPage } from '../pages/login-options/login-options';
+import { CreateCardPage } from '../pages/create-card/create-card';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { TabsLoggedOutPage } from '../pages/tabs-logged-out/tabs-logged-out';
@@ -43,7 +44,8 @@ const myFirebaseAuthConfig = {
     ContactsPage,
     TabsLoggedOutPage,
     DonateBuyPage,
-    LoginOptionsPage
+    LoginOptionsPage,
+    CreateCardPage
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig ),
@@ -61,7 +63,8 @@ const myFirebaseAuthConfig = {
     ContactsPage,
     TabsLoggedOutPage,
     DonateBuyPage,
-    LoginOptionsPage
+    LoginOptionsPage,
+    CreateCardPage
   ],
   providers: [AuthService, Storage]
 })
