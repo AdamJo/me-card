@@ -14,5 +14,19 @@
 </ion-header>
 
 <ion-content padding>
-  Card
+  <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label floating>First Name</ion-label>
+      <ion-input type="text" formControlName="firstName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Last Name</ion-label>
+      <ion-input type="text" formControlName="lastName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Display Name</ion-label>
+      <ion-input type="text" formControlName="displayName"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" [disabled]="!cardForm.valid">Submit</button>
+  </form>
 </ion-content>

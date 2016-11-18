@@ -1,7 +1,9 @@
 export interface Card {
-  typeName: string;
+  cardTypeName: string;
   resume: boolean;
-  displayName?: string;
+  firstName?: string;
+  lastName?: string;
+  displayName: string;
   company?: string;
   extension?: number;
   email?: string;
@@ -12,5 +14,5 @@ export interface Card {
   personalNumber?: number;
   faxNumber?: number;
   position?: string;
-  tools: string[];
+  tools?: string[];
 }
