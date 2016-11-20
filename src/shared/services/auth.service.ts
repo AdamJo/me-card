@@ -40,7 +40,7 @@ export class AuthService {
             providerId: loggedIn.auth.providerId
           }
         );
-        this.setUsername(loggedIn.auth.displayName);
+        this.setDisplayName(loggedIn.auth.displayName);
         this.setEmail(loggedIn.auth.email);
         this.setPhotoUrl(loggedIn.auth.photoURL);
         this.setStuff();
@@ -75,8 +75,8 @@ export class AuthService {
     console.log(this.authState);
   }
 
-  setUsername(username) {
-    this.storage.set('username', username);
+  setDisplayName(displayName) {
+    this.storage.set('displayName', displayName);
   }
 
   setEmail(email) {
@@ -97,8 +97,8 @@ export class AuthService {
     });
   }
 
-  getUsername() {
-    return this.storage.get('username').then((value) => {
+  getDisplayName() {
+    return this.storage.get('displayName').then((value) => {
       return value;
     });
   }

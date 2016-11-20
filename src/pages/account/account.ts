@@ -10,22 +10,22 @@ import { CreateCardPage } from '../create-card/create-card'
   templateUrl: 'account.html'
 })
 export class AccountPage {
-  username: string;
+  displayName: string;
   email: string;
   photoUrl:string;
 
   constructor(public navCtrl: NavController, public auth: AuthService) {}
 
   ngAfterViewInit() {
-    this.getUsername();
+    this.getDisplayName();
     this.getEmail();
     this.getPhotoUrl();
     this.getStuff();
   }
 
-  getUsername() {
-    this.auth.getUsername().then((username) => {
-      this.username = username;
+  getDisplayName() {
+    this.auth.getDisplayName().then((displayName) => {
+      this.displayName = displayName;
     });
   }
 
@@ -43,7 +43,6 @@ export class AccountPage {
 
   getStuff() {
     this.auth.getStuff().then((stuff) => {
-      console.log(stuff)
     });
   }
 
