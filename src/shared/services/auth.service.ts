@@ -27,6 +27,16 @@ export class AuthService {
     return this.authenticated ? this.authState.uid : '';
   }
 
+  //TODO call auth directly or use storage?
+  get email(): string {
+    return this.authState.auth.email;
+  }
+
+  //TODO call auth directly or use storage?
+  get displayName(): string {
+    return this.authState.auth.displayName;
+  }
+
   signIn(provider: number): firebase.Promise<FirebaseAuthState> {
     this.events.publish('user:login');
     return this.auth$.login({provider})
