@@ -126,11 +126,14 @@ export class AuthService {
   }
 
   getCards() {
-
+    let myCard$ = this.af.database.object(`/users/${this.id}/cards/`)
+    myCard$.subscribe(data => {
+      console.log(data);
+    })
   }
 
-  saveCards() {
-    
+  saveCards(card) {
+    this.af.database.object(`/users/${this.id}/cards/${card.cardName}/`).update(card);
   }
 
   hasLoggedIn() {

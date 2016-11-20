@@ -27,6 +27,7 @@ export class CreateCardPage {
     this.tabBarElement = document.querySelector('.tabbar');
     this.card.email = navParams.get('email');
     this.card.displayName = navParams.get('displayName');
+
   }
 
   ionViewWillEnter()
@@ -35,10 +36,11 @@ export class CreateCardPage {
   }
 
   ngOnInit(): void {
-    this.buildForm();
+    this.buildForm();       
   }
 
   buildForm(): void {
+    console.log('here');
     this.cardForm = this.formBuilder.group({
       'displayName': [this.card.displayName, [
           Validators.required,
@@ -67,8 +69,13 @@ export class CreateCardPage {
     });
   }
 
-  onSubmit() {
-    console.log(this.card)
+  onSubmit({ value, valid }: { value: Card, valid: boolean })  {
+    console.log(value, valid);
+    this.auth.saveCards(value);
+  }
+
+  getCard() {
+    this.auth.getCards();
   }
 
   // http://blog.thoughtram.io/angular/2016/03/14/custom-validators-in-angular-2.html
