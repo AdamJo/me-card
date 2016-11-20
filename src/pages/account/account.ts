@@ -47,6 +47,12 @@ export class AccountPage {
   }
 
   createCard() {
-    this.navCtrl.setRoot(CreateCardPage)
+    console.log(this.displayName);
+    this.navCtrl.setRoot(
+      CreateCardPage,
+      {
+        email: this.email,
+        displayName: this.displayName
+      });
   }
 }
