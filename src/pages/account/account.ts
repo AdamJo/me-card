@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { AuthService } from '../../shared/services/auth.service'
+import { AuthService } from '../../shared/services/auth.service';
 
-import { CreateCardPage } from '../create-card/create-card'
+import { CreateCardPage } from '../create-card/create-card';
+import { Card } from '../../shared/models/card.model';
 
 @Component({
   selector: 'page-account',
@@ -13,15 +14,30 @@ export class AccountPage {
   displayName: string;
   email: string;
   photoUrl:string;
+  cards: any;
 
-  constructor(public navCtrl: NavController, public auth: AuthService) {}
+  constructor(public navCtrl: NavController, public auth: AuthService) {
+    this.auth.loadLocalCards().then((cards) => {
+      this.cards = cards;
+    });
+    // this.auth.getCards().then(value => {
+    //   value.subscribe(data => {
+    //     console.log(data);
+
+    //     this.cards = data;
+    //     this.auth.saveCardsLocally(data);
+    //   })
+    // })
+  }
 
   ngAfterViewInit() {
     this.getDisplayName();
     this.getEmail();
     this.getPhotoUrl();
-    this.getStuff();
+    this.getStuff();    
   }
+
+  ionViewDidEnter() {}
 
   getDisplayName() {
     this.auth.getDisplayName().then((displayName) => {
@@ -44,6 +60,17 @@ export class AccountPage {
   getStuff() {
     this.auth.getStuff().then((stuff) => {
     });
+  }
+
+  editCard(card) {
+    console.log(card);
+    this.navCtrl.setRoot(
+      CreateCardPage,
+      {
+        cardName: card.cardName,
+        email: card.email,
+        displayName: card.displayName
+      });
   }
 
   createCard() {

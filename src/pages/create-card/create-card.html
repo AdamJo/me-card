@@ -17,7 +17,7 @@
   <form novalidate [formGroup]="cardForm" (ngSubmit)="onSubmit(cardForm)">
     <ion-item>
       <ion-label floating>Card Display Name</ion-label>
-      <ion-input type="text" formControlName="cardName" value=""></ion-input>
+      <ion-input type="text" formControlName="cardName" [value]="card.cardName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>User Display Name</ion-label>
@@ -32,7 +32,6 @@
       <ion-input type="text" formControlName="position"></ion-input>
     </ion-item>
     <button block ion-button type="submit" [disabled]="!cardForm.valid">Submit</button>
-    
   </form>
   <button block ion-button (click)="getCard()">nope</button>
 </ion-content>

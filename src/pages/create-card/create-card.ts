@@ -11,6 +11,7 @@ import { AuthService } from '../../shared/services/auth.service'
   selector: 'page-create-card',
   templateUrl: 'create-card.html'
 })
+
 export class CreateCardPage {
   card: Card = {
     cardName: '',
@@ -27,20 +28,18 @@ export class CreateCardPage {
     this.tabBarElement = document.querySelector('.tabbar');
     this.card.email = navParams.get('email');
     this.card.displayName = navParams.get('displayName');
-
+    this.card.cardName = navParams.get('cardName');
   }
 
-  ionViewWillEnter()
-  {
+  ionViewWillEnter() {
     this.tabBarElement.style.display = 'none';
   }
 
-  ngOnInit(): void {
-    this.buildForm();       
+  ngOnInit() {
+    this.buildForm();
   }
 
   buildForm(): void {
-    console.log('here');
     this.cardForm = this.formBuilder.group({
       'displayName': [this.card.displayName, [
           Validators.required,
@@ -52,8 +51,8 @@ export class CreateCardPage {
           this.validateEmail
         ]
       ],
-      'position': [this.card.position, [
-
+      'position': ['', [
+          Validators.maxLength(70)
         ]
       ],
       'cardName': [this.card.cardName, [

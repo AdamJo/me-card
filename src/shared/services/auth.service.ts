@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { FirebaseAuth, FirebaseAuthState, AuthProviders, AngularFire  } from 'angularfire2';
 import { Injectable } from '@angular/core';
 
+
 @Injectable()
 export class AuthService {
   private authState: FirebaseAuthState = null;
@@ -51,6 +52,7 @@ export class AuthService {
           }
         );
         this.setDisplayName(loggedIn.auth.displayName);
+        this.setId(loggedIn.auth.uid);
         this.setEmail(loggedIn.auth.email);
         this.setPhotoUrl(loggedIn.auth.photoURL);
         this.setStuff();
@@ -77,6 +79,7 @@ export class AuthService {
 
   signOut(): void {
     this.storage.remove(this.HAS_LOGGED_IN);
+    this.storage.remove(this.id);
     this.events.publish('user:logout');
     this.auth$.logout();
   }
@@ -87,6 +90,10 @@ export class AuthService {
 
   setDisplayName(displayName) {
     this.storage.set('displayName', displayName);
+  }
+
+  setId(id) {
+    this.storage.set('id', id);
   }
 
   setEmail(email) {
@@ -126,14 +133,24 @@ export class AuthService {
   }
 
   getCards() {
-    let myCard$ = this.af.database.object(`/users/${this.id}/cards/`)
-    myCard$.subscribe(data => {
-      console.log(data);
+    return this.storage.get('id').then((value) => {
+      return this.af.database.list(`/users/${value}/cards`)
     })
   }
 
   saveCards(card) {
     this.af.database.object(`/users/${this.id}/cards/${card.cardName}/`).update(card);
+  }
+
+  saveCardsLocally(cards: any[]) {
+    console.log(cards[0]);
+    this.storage.set('cards', JSON.stringify(cards));
+  }  
+
+  loadLocalCards() {
+    return this.storage.get('cards').then((value) => {
+      return (JSON.parse(value))
+    });
   }
 
   hasLoggedIn() {
