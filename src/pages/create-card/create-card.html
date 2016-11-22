@@ -9,12 +9,23 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Create Card</ion-title>
+    <ion-title *ngIf="!navParams.get('edit')">Create Card</ion-title>
+    <ion-title *ngIf="navParams.get('edit')">Edit Card</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <form novalidate [formGroup]="cardForm" (ngSubmit)="onSubmit(cardForm)">
+  <div>
+    <ion-segment [(ngModel)]="cardType">
+      <ion-segment-button value="business">
+        Business
+      </ion-segment-button>
+      <ion-segment-button value="resume">
+        Resume
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <form #formThis novalidate [formGroup]="cardForm" (ngSubmit)="onSubmit(cardForm)">
     <ion-item>
       <ion-label floating>Card Display Name</ion-label>
       <ion-input type="text" formControlName="cardName" [value]="card.cardName"></ion-input>
