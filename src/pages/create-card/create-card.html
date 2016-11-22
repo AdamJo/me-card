@@ -38,11 +38,8 @@
       <ion-label floating>Email</ion-label>
       <ion-input type="email" formControlName="email" [value]="card.email"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label floating>Position / title</ion-label>
-      <ion-input type="text" formControlName="position"></ion-input>
-    </ion-item>
-    <button block ion-button type="submit" [disabled]="!cardForm.valid">Submit</button>
-  </form>
-  <button block ion-button (click)="getCard()">nope</button>
+    <button block ion-button type="submit" [disabled]="!cardForm.valid">Save</button>
+  </form>    
+    <button block ion-button >Cancel</button>
+    <button block ion-button (click)="showRadio()" >Cancel</button>
 </ion-content>

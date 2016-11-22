@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild, ElementRef, QueryList } from '@angular/core';
+import { NavController, NavParams, ActionSheetController, AlertController } from 'ionic-angular';
 
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
@@ -13,6 +13,29 @@ import { AuthService } from '../../shared/services/auth.service'
 })
 
 export class CreateCardPage {
+  @ViewChild('formThis') please: ElementRef;
+
+  actionSheetValues: Array<string> = [
+      'Home Number',
+      'Mobile Number',
+      'Work Number',
+      'Email',
+      'Personal Email',
+      'Company',
+      'Address',
+      'Description',
+      'Fax Number',
+      'Position / Title',
+      'Tools',
+      'Website'
+    ]
+
+  cardType: string = "business";
+  label: string = "";
+
+  testRadioOpen: boolean;
+  testRadioResult;
+
   card: Card = {
     cardName: '',
     displayName: '',
@@ -24,7 +47,9 @@ export class CreateCardPage {
   constructor(
     private formBuilder: FormBuilder,
     public auth: AuthService,
-    private navParams: NavParams) {
+    private navParams: NavParams,
+    public actionSheetCtrl: ActionSheetController,
+    private alertCtrl: AlertController) {
     this.tabBarElement = document.querySelector('.tabbar');
     this.card.email = navParams.get('email');
     this.card.displayName = navParams.get('displayName');
@@ -60,16 +85,14 @@ export class CreateCardPage {
           Validators.minLength(1),
           Validators.maxLength(70)
         ]
+      ],
+      'langs': ['', [
+        ]
       ]
-      
-      // ,
-      // 'alterEgo': [this.hero.alterEgo],
-      // 'power':    [this.hero.power, Validators.required]
     });
   }
 
   onSubmit({ value, valid }: { value: Card, valid: boolean })  {
-    console.log(value, valid);
     this.auth.saveCards(value);
   }
 
@@ -89,4 +112,34 @@ export class CreateCardPage {
     };
   }
 
+  testButton() {
+    console.log(this.label);
+  }
+
+  showRadio() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Labels');
+
+    this.actionSheetValues.map(data => {
+      alert.addInput({
+        type: 'radio',
+        label: data,
+        value: data
+      })
+    })
+
+    alert.addButton('Cancel');
+    alert.addButton({
+      text: 'Ok',
+      handler: data => {
+        console.log('Radio data:', data);
+        this.testRadioOpen = false;
+        this.testRadioResult = data;
+      }
+    });
+
+    alert.present().then(() => {
+      this.testRadioOpen = true;
+    });
+  }
 }

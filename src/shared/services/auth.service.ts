@@ -108,12 +108,6 @@ export class AuthService {
     this.storage.set('stuff', {one: 'one', two: 'yellow'});
   }
 
-  getStuff() {
-    return this.storage.get('stuff').then((value) => {
-      return value;
-    });
-  }
-
   getDisplayName() {
     return this.storage.get('displayName').then((value) => {
       return value;
@@ -143,9 +137,8 @@ export class AuthService {
   }
 
   saveCardsLocally(cards: any[]) {
-    console.log(cards[0]);
     this.storage.set('cards', JSON.stringify(cards));
-  }  
+  }
 
   loadLocalCards() {
     return this.storage.get('cards').then((value) => {
