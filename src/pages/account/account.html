@@ -19,12 +19,19 @@
     <h2>{{username}}</h2>
   </div>
   <ion-list>
-    <button *ngFor="let card of cards; let i = index;" (click)="editCard(cards[i])" ion-button block>
+    <h2 style="text-align: center;">View / Edit</h2>
+    <button 
+      *ngFor="let card of cards; let i = index;"
+      (click)="editCard(cards[i])"
+      ion-button block>
       {{card.cardName}}
     </button>
     <ion-item>
-      <button ion-item (click)="createCard()">
-        <ion-icon item-left name="add"></ion-icon>
+      <button
+        style="text-align: center;"
+        ion-item color="primary" (click)="createCard()"
+        block>
+        <ion-icon name="add"></ion-icon>
         Create Card
       </button>
     </ion-item>

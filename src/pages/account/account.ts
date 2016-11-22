@@ -20,21 +20,12 @@ export class AccountPage {
     this.auth.loadLocalCards().then((cards) => {
       this.cards = cards;
     });
-    // this.auth.getCards().then(value => {
-    //   value.subscribe(data => {
-    //     console.log(data);
-
-    //     this.cards = data;
-    //     this.auth.saveCardsLocally(data);
-    //   })
-    // })
   }
 
   ngAfterViewInit() {
     this.getDisplayName();
     this.getEmail();
     this.getPhotoUrl();
-    this.getStuff();    
   }
 
   ionViewDidEnter() {}
@@ -57,16 +48,12 @@ export class AccountPage {
     });
   }
 
-  getStuff() {
-    this.auth.getStuff().then((stuff) => {
-    });
-  }
-
   editCard(card) {
     console.log(card);
     this.navCtrl.setRoot(
       CreateCardPage,
       {
+        edit: true,
         cardName: card.cardName,
         email: card.email,
         displayName: card.displayName
@@ -78,6 +65,7 @@ export class AccountPage {
     this.navCtrl.setRoot(
       CreateCardPage,
       {
+        edit: false,
         email: this.email,
         displayName: this.displayName
       });
