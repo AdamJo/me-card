@@ -22,6 +22,8 @@ import { AngularFireModule, AuthMethods } from 'angularfire2';
 
 import { AuthService } from '../shared/services/auth.service'
 
+import { ModalContentPage } from '../pages/create-card/modal';
+
 const firebaseConfig = {
   apiKey: 'AIzaSyDrRnguFUwKGBzaTOcBcj-bC0vBxx6sDao',
   authDomain: 'me-card.firebaseapp.com',
@@ -48,7 +50,8 @@ const myFirebaseAuthConfig = {
     DonateBuyPage,
     LoginOptionsPage,
     CreateCardPage,
-    ViewEditCardPage
+    ViewEditCardPage,
+    ModalContentPage
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig ),
@@ -69,7 +72,8 @@ const myFirebaseAuthConfig = {
     DonateBuyPage,
     LoginOptionsPage,
     CreateCardPage,
-    ViewEditCardPage
+    ViewEditCardPage,
+    ModalContentPage
   ],
   providers: [AuthService, Storage]
 })
