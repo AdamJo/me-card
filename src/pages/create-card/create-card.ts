@@ -1,11 +1,16 @@
 import { Component, ViewChild, ElementRef, QueryList } from '@angular/core';
-import { NavController, NavParams, ActionSheetController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ActionSheetController, AlertController, ModalController, ViewController } from 'ionic-angular';
 
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { Card } from '../../shared/models/card.model'
 
 import { AuthService } from '../../shared/services/auth.service'
+
+import { ExtraLabels } from './extra-labels';
+
+import { ModalContentPage } from './modal'
+
 
 @Component({
   selector: 'page-create-card',
@@ -15,20 +20,9 @@ import { AuthService } from '../../shared/services/auth.service'
 export class CreateCardPage {
   @ViewChild('formThis') please: ElementRef;
 
-  actionSheetValues: Array<string> = [
-      'Home Number',
-      'Mobile Number',
-      'Work Number',
-      'Email',
-      'Personal Email',
-      'Company',
-      'Address',
-      'Description',
-      'Fax Number',
-      'Position / Title',
-      'Tools',
-      'Website'
-    ]
+  inputs: Array<any> = [];
+
+  alert: any;
 
   cardType: string = "business";
   label: string = "";
@@ -47,13 +41,18 @@ export class CreateCardPage {
   constructor(
     private formBuilder: FormBuilder,
     public auth: AuthService,
-    private navParams: NavParams,
+    public navParams: NavParams,
     public actionSheetCtrl: ActionSheetController,
-    private alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public modalCtrl: ModalController,
+    public viewCtrl: ViewController) {
     this.tabBarElement = document.querySelector('.tabbar');
     this.card.email = navParams.get('email');
     this.card.displayName = navParams.get('displayName');
     this.card.cardName = navParams.get('cardName');
+
+    console.log(viewCtrl.data)
+    console.log(navParams);
   }
 
   ionViewWillEnter() {
@@ -62,10 +61,12 @@ export class CreateCardPage {
 
   ngOnInit() {
     this.buildForm();
+    this.tabBarElement.style.display = 'none';
   }
 
   buildForm(): void {
     this.cardForm = this.formBuilder.group({
+      // required
       'displayName': [this.card.displayName, [
           Validators.required,
           Validators.minLength(1),
@@ -73,11 +74,9 @@ export class CreateCardPage {
         ]
       ],
       'email': [this.card.email, [
-          this.validateEmail
-        ]
-      ],
-      'position': ['', [
-          Validators.maxLength(70)
+          this.validateEmail,
+          Validators.minLength(5),
+          Validators.maxLength(255)
         ]
       ],
       'cardName': [this.card.cardName, [
@@ -85,15 +84,13 @@ export class CreateCardPage {
           Validators.minLength(1),
           Validators.maxLength(70)
         ]
-      ],
-      'langs': ['', [
-        ]
       ]
     });
   }
 
   onSubmit({ value, valid }: { value: Card, valid: boolean })  {
     this.auth.saveCards(value);
+    console.log(value, valid);
   }
 
   getCard() {
@@ -116,30 +113,61 @@ export class CreateCardPage {
     console.log(this.label);
   }
 
-  showRadio() {
-    let alert = this.alertCtrl.create();
-    alert.setTitle('Labels');
+  createAlert() {
+    this.alert = this.alertCtrl.create();
+    this.alert.setTitle('Labels');
 
-    this.actionSheetValues.map(data => {
-      alert.addInput({
-        type: 'radio',
-        label: data,
-        value: data
+    for (let prop in ExtraLabels) {
+      this.alert.addInput({
+        type: 'checkbox',
+        label: ExtraLabels[prop].label,
+        value: ExtraLabels[prop].formControlName
       })
-    })
+    }
 
-    alert.addButton('Cancel');
-    alert.addButton({
+    this.alert.addButton('Cancel');
+    this.alert.addButton({
       text: 'Ok',
-      handler: data => {
-        console.log('Radio data:', data);
+      handler: (data: Array<string>) => {
+        for (let index = 0, len = data.length; index < len; index++) {
+          this.cardForm
+            .addControl(
+              data[index],
+              new FormControl('', ExtraLabels[data[index]].validators));
+          this.inputs.push(ExtraLabels[data[index]]);     
+        }
+
         this.testRadioOpen = false;
         this.testRadioResult = data;
       }
     });
+  }
 
-    alert.present().then(() => {
+  showAlertCheckbox() {
+    this.createAlert();
+    this.alert.present().then(() => {
       this.testRadioOpen = true;
     });
+  }
+
+  deleteLabel(value, index) {
+    this.inputs.splice(index, 1);
+  }
+
+
+  openModal(characterNum) {
+    let modal = this.modalCtrl.create(ModalContentPage, characterNum);
+    modal.onDidDismiss(data => {
+      if (data) {
+        for (let index = 0, len = data.length; index < len; index++) {
+          this.cardForm
+            .addControl(
+              data[index],
+              new FormControl('', ExtraLabels[data[index]].validators));
+          this.inputs.push(ExtraLabels[data[index]]);     
+        }
+      }
+    })
+    modal.present();
   }
 }

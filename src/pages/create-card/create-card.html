@@ -32,14 +32,22 @@
     </ion-item>
     <ion-item>
       <ion-label floating>User Display Name</ion-label>
-      <ion-input type="text" formControlName="displayName" [value]="card.displayName"></ion-input>
+      <ion-input type="text" name="name" formControlName="displayName" [value]="card.displayName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Email</ion-label>
-      <ion-input type="email" formControlName="email" [value]="card.email"></ion-input>
+      <ion-input type="email" name="email" formControlName="email" [value]="card.email"></ion-input>
     </ion-item>
+    <div class="generated-labels" *ngFor="let input of inputs; let i = index;">
+      <ion-item>
+        <ion-label floating>{{input.label}}</ion-label>
+        <ion-input [type]="input.type" [formControlName]="input.formControlName"></ion-input>
+        <ion-icon item-right (click)="deleteLabel(i)" name="trash"></ion-icon>
+      </ion-item>
+    </div>
     <button block ion-button type="submit" [disabled]="!cardForm.valid">Save</button>
-  </form>    
+  </form>
     <button block ion-button >Cancel</button>
-    <button block ion-button (click)="showRadio()" >Cancel</button>
+    <button block ion-button (click)="openModal({charNum: 0})" >Add Label</button>
+    
 </ion-content>
