@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   private authState: FirebaseAuthState = null;
   HAS_LOGGED_IN = 'hasLoggedIn';
+  public cardNameList: Array<string> = [];
 
   constructor(
     public auth$: FirebaseAuth,
@@ -144,6 +145,7 @@ export class AuthService {
   }
 
   saveCardsLocally(cards: any[]) {
+    this.cardNameList = Object.keys(cards);
     this.storage.set('cards', JSON.stringify(cards));
   }
 
