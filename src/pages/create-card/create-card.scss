@@ -7,3 +7,12 @@ page-create-card {
     width: 80%;
   }
 }
+
+.bottom-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.error-message {
+  color: red;
+}
