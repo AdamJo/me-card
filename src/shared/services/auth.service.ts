@@ -10,6 +10,7 @@ export class AuthService {
   private authState: FirebaseAuthState = null;
   HAS_LOGGED_IN = 'hasLoggedIn';
   public cardNameList: Array<string> = [];
+  public allCards: Array<any> = [];
 
   constructor(
     public auth$: FirebaseAuth,
@@ -142,6 +143,8 @@ export class AuthService {
 
   saveCards(card) {
     this.af.database.object(`/cards/${this.id}/${card.cardName}/`).update(card);
+    this.allCards[card.cardName] = card;
+    this.saveCardsLocally(this.allCards);
   }
 
   saveCardsLocally(cards: any[]) {
@@ -152,6 +155,7 @@ export class AuthService {
   loadLocalCards() {
     return this.storage.get('cards').then((value) => {
       this.cardNameList = Object.keys(JSON.parse(value));
+      this.allCards = JSON.parse(value);
       return JSON.parse(value);
     });
   }

@@ -16,8 +16,6 @@ export class AccountPage {
   cards: Array<any> = [];
 
   constructor(public navCtrl: NavController, public auth: AuthService) {
-    this.loadCards();
-    console.log('here')
   }
 
   ngAfterViewInit() {
@@ -26,8 +24,9 @@ export class AccountPage {
     this.getPhotoUrl();
   }
 
-  ionViewDidEnter() {}
-
+  ionViewWillEnter() {
+    this.loadCards();
+  }
   getDisplayName() {
     this.auth.getDisplayName().then((displayName) => {
       this.displayName = displayName;
@@ -81,6 +80,7 @@ export class AccountPage {
         allCards.push(localCards[keys[index]]);
       }
       this.cards = allCards;
+      console.log(this.cards)
     });
   }
 }
