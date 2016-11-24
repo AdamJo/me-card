@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
-import { ModalController, Platform, NavParams, ViewController } from 'ionic-angular';
+import { Platform, NavParams, ViewController } from 'ionic-angular';
 
 import { ExtraLabels } from './extra-labels'
-import { Validators, FormBuilder, FormControl, FormGroup, CheckboxControlValueAccessor } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   template: `
@@ -13,9 +13,11 @@ import { Validators, FormBuilder, FormControl, FormGroup, CheckboxControlValueAc
           Description
         </ion-title>
         <ion-buttons start>
-          <button ion-button (click)="dismiss()">
-            <span color="primary" showWhen="ios">Cancel</span>
-            <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+          <button style="font-size: 20px;" showWhen="android,windows" ion-button (click)="dismiss()">
+            <ion-icon name="md-close"></ion-icon>
+          </button>
+          <button style="font-size: 20px;" showWhen="ios" ion-button (click)="dismiss()">
+            <span color="primary" >Cancel</span>
           </button>
         </ion-buttons>
       </ion-toolbar>
@@ -26,12 +28,12 @@ import { Validators, FormBuilder, FormControl, FormGroup, CheckboxControlValueAc
         <div *ngFor="let label of labels; let i = index;">
           <ion-item>
             <ion-label>{{label.label}}</ion-label>
-            <ion-checkbox color="primary" checked="false" [formControlName]="label.formControlName"></ion-checkbox>
+            <ion-checkbox checked="false" [formControlName]="label.formControlName"></ion-checkbox>
           </ion-item>
         </div>
       </form>
     </ion-content>
-`
+  `
 })
 export class ModalContentPage {
   labels: Array<any> = [];
@@ -45,7 +47,6 @@ export class ModalContentPage {
     
     this.labelsForm = this.formBuilder.group({}, {validator: this.checkboxRequired});
     for (let prop in ExtraLabels) {
-      console.log(prop);
       this.labelsForm.addControl(prop, new FormControl(false))
       this.labels.push(ExtraLabels[prop])
     }
@@ -56,30 +57,29 @@ export class ModalContentPage {
   }
 
   submitDismiss({ value, valid }: { value: any, valid: boolean }) {
-    console.log(value, valid);
     let checked = Object.keys(value).filter(data => {
       return value[data]
     });
     this.viewCtrl.dismiss(checked)
   }
 
-checkboxRequired(group: FormGroup) {
-  var valid = false;
+  checkboxRequired(group: FormGroup) {
+    var valid = false;
 
-  for (let checkboxName in group.controls) {
-    var val = group.controls[checkboxName].value;
-    if (val) {
-      valid = true;
-      break;
+    for (let checkboxName in group.controls) {
+      var val = group.controls[checkboxName].value;
+      if (val) {
+        valid = true;
+        break;
+      }
     }
-  }
 
-  if (valid) {
-    return null;
-  }
+    if (valid) {
+      return null;
+    }
 
-  return {
-    checkboxRequired: true
-  };
-}
+    return {
+      checkboxRequired: true
+    };
+  }
 }
