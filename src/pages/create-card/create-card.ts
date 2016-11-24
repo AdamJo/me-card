@@ -154,9 +154,8 @@ export class CreateCardPage {
     this.inputs.splice(index, 1);
   }
 
-
-  openModal(characterNum) {
-    let modal = this.modalCtrl.create(ModalContentPage, characterNum);
+  openModal() {
+    let modal = this.modalCtrl.create(ModalContentPage);
     modal.onDidDismiss(data => {
       if (data) {
         for (let index = 0, len = data.length; index < len; index++) {
