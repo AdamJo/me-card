@@ -4,7 +4,6 @@ import { NavController } from 'ionic-angular';
 import { AuthService } from '../../shared/services/auth.service';
 
 import { CreateCardPage } from '../create-card/create-card';
-import { Card } from '../../shared/models/card.model';
 
 @Component({
   selector: 'page-account',
@@ -14,12 +13,11 @@ export class AccountPage {
   displayName: string;
   email: string;
   photoUrl:string;
-  cards: any;
+  cards: Array<any> = [];
 
   constructor(public navCtrl: NavController, public auth: AuthService) {
-    this.auth.loadLocalCards().then((cards) => {
-      this.cards = cards;
-    });
+    this.loadCards();
+    console.log('here')
   }
 
   ngAfterViewInit() {
@@ -69,5 +67,20 @@ export class AccountPage {
         email: this.email,
         displayName: this.displayName
       });
+  }
+
+  getFirebaseCards() {
+    this.auth.getCardsFirebase();
+  }
+
+  loadCards() {
+    this.auth.loadLocalCards().then((localCards) => {
+      let keys = Object.keys(localCards);
+      let allCards = []
+      for (let index = 0, len = keys.length; index < len; index++) {
+        allCards.push(localCards[keys[index]]);
+      }
+      this.cards = allCards;
+    });
   }
 }
