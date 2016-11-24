@@ -1,4 +1,5 @@
 export interface Card {
+  cardType: string;
   cardName: string;
   displayName: string;
   company?: string;
