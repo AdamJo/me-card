@@ -126,14 +126,21 @@ export class AuthService {
     });
   }
 
-  getCards() {
-    return this.storage.get('id').then((value) => {
-      return this.af.database.list(`/users/${value}/cards`)
+  getCardsLocally() {
+    return this.storage.get('cards').then((value) => {
+      return value;
+    });
+  }
+
+  getCardsFirebase() {
+    this.af.database.object(`/cards/${this.id}`).subscribe(data => {
+      delete data['$key'];
+      this.saveCardsLocally(data);
     })
   }
 
   saveCards(card) {
-    this.af.database.object(`/users/${this.id}/cards/${card.cardName}/`).update(card);
+    this.af.database.object(`/cards/${this.id}/${card.cardName}/`).update(card);
   }
 
   saveCardsLocally(cards: any[]) {
@@ -142,7 +149,8 @@ export class AuthService {
 
   loadLocalCards() {
     return this.storage.get('cards').then((value) => {
-      return (JSON.parse(value))
+      this.cardNameList = Object.keys(JSON.parse(value));
+      return JSON.parse(value);
     });
   }
 
