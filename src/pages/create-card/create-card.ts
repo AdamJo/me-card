@@ -7,7 +7,7 @@ import { Card } from '../../shared/models/card.model'
 
 import { AuthService } from '../../shared/services/auth.service'
 
-import { ExtraLabels } from './extra-labels';
+import { ExtraLabels, Extension } from './extra-labels';
 
 import { ModalContentPage } from './modal'
 
@@ -124,7 +124,13 @@ export class CreateCardPage {
             .addControl(
               data[index],
               new FormControl('', ExtraLabels[data[index]].validators));
-          this.inputs.push(ExtraLabels[data[index]]);     
+          this.inputs.push(ExtraLabels[data[index]]);
+          if (ExtraLabels[data[index]].type === 'tel') {
+            this.cardForm
+              .addControl(
+                'ext',
+                new FormControl('', Extension.validators));
+          }
         }
       }
     })
