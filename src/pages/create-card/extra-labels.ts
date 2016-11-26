@@ -1,5 +1,13 @@
 import { Validators } from '@angular/forms';
 
+export const Extension = {
+  label: 'Ext',
+  formControlName: 'ext',
+  type: 'phone',
+  name: 'ext',
+  validators: [Validators.maxLength(20)]
+}
+
 export const ExtraLabels = {
   'homeNumber': {
     label: 'Home Number',
