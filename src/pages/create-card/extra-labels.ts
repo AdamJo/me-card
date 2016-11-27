@@ -1,11 +1,27 @@
 import { Validators } from '@angular/forms';
 
-export const Extension = {
-  label: 'Ext',
-  formControlName: 'ext',
-  type: 'phone',
-  name: 'ext',
-  validators: [Validators.maxLength(20)]
+export const Address = {
+  'city': {
+    label: 'City',
+    formControlName: 'city',
+    type: 'text',
+    name: 'city',
+    validators: []
+  },
+  'zip': {
+    label: 'Postal / Zip Code',
+    formControlName: 'zip',
+    type: 'text',
+    name: 'zip',
+    validators: []
+  },
+  'country': {
+    label: 'Country',
+    formControlName: 'country',
+    type: 'text',
+    name: 'country',
+    validators: []
+  }
 }
 
 export const ExtraLabels = {
@@ -37,13 +53,6 @@ export const ExtraLabels = {
     name: '',
     validators: [Validators.maxLength(20)]
   },
-  'ext': {
-    label: 'Ext',
-    formControlName: 'ext',
-    type: 'phone',
-    name: 'ext',
-    validators: [Validators.maxLength(20)]
-  },
   'company': {
     label: 'Company Name',
     formControlName: 'company',
@@ -56,27 +65,6 @@ export const ExtraLabels = {
     formControlName: 'address',
     type: 'text',
     name: 'address',
-    validators: []
-  },
-  'city': {
-    label: 'City',
-    formControlName: 'city',
-    type: 'text',
-    name: 'city',
-    validators: []
-  },
-  'zip': {
-    label: 'Postal / Zip Code',
-    formControlName: 'zip',
-    type: 'text',
-    name: 'zip',
-    validators: []
-  },
-  'country': {
-    label: 'Country',
-    formControlName: 'country',
-    type: 'text',
-    name: 'country',
     validators: []
   },
   'description': {
