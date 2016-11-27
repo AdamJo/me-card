@@ -15,8 +15,7 @@ export class AccountPage {
   photoUrl:string;
   cards: Array<any> = [];
 
-  constructor(public navCtrl: NavController, public auth: AuthService) {
-  }
+  constructor(public navCtrl: NavController, public auth: AuthService) {}
 
   ngAfterViewInit() {
     this.getDisplayName();
@@ -46,15 +45,12 @@ export class AccountPage {
   }
 
   editCard(card) {
-    console.log(card);
+
+    card['edit'] = true;
+
     this.navCtrl.setRoot(
       CreateCardPage,
-      {
-        edit: true,
-        cardName: card.cardName,
-        email: card.email,
-        displayName: card.displayName
-      });
+      card);
   }
 
   createCard() {

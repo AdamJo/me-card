@@ -142,7 +142,7 @@ export class AuthService {
   }
 
   saveCards(card) {
-    this.af.database.object(`/cards/${this.id}/${card.cardName}/`).update(card);
+    this.af.database.object(`/cards/${this.id}/${card.cardName}/`).set(card);
     this.allCards[card.cardName] = card;
     this.saveCardsLocally(this.allCards);
   }

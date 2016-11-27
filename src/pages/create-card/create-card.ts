@@ -7,7 +7,7 @@ import { Card } from '../../shared/models/card.model'
 
 import { AuthService } from '../../shared/services/auth.service'
 
-import { ExtraLabels, Extension } from './extra-labels';
+import { ExtraLabels, Address } from './extra-labels';
 
 import { ModalContentPage } from './modal'
 
@@ -51,11 +51,10 @@ export class CreateCardPage {
     public navCtrl: NavController) {
 
     this.cardList = this.auth.cardNameList;
-    this.edit = this.navParams.get('edit');
+
+
+    this.edit = navParams.get('edit');
     this.tabBarElement = document.querySelector('.tabbar');
-    this.card.email = navParams.get('email');
-    this.card.displayName = navParams.get('displayName');
-    this.card.cardName = navParams.get('cardName');
     this.originalCardName = navParams.get('cardName');
   }
 
@@ -65,32 +64,63 @@ export class CreateCardPage {
 
   ngOnInit() {
     this.buildForm();
+    if (this.navParams.get('edit')) {
+      for (let prop in this.navParams.data) {
+        console.log(prop);
+        this.card[prop] = this.navParams.get(prop);
+        if (prop !== 'edit' && prop in ExtraLabels) {
+          this.cardForm
+            .addControl(
+              prop,
+              new FormControl(this.card[prop], ExtraLabels[prop].validators));
+          this.inputs.push(ExtraLabels[prop]);
+          if (prop === 'address') {
+            this.card['city'] = this.navParams.get('city');
+            this.card['zip'] = this.navParams.get('zip');
+            this.card['country'] = this.navParams.get('country');
+            this.cardForm
+              .addControl(
+                'city',
+                new FormControl(this.card['city'], Address['city'].validators));
+            this.cardForm
+              .addControl(
+                'zip',
+                new FormControl(this.card['zip'], Address['zip'].validators));
+            this.cardForm
+              .addControl(
+                'country',
+                new FormControl(this.card['coutry'], Address['country'].validators));          
+          }
+        }
+      }
+    }
+    console.log(this.card, this.cardForm);
     this.tabBarElement.style.display = 'none';
   }
 
   buildForm(): void {
     this.cardForm = this.formBuilder.group({
       // required
-      'cardName': [this.card.cardName, [
+      'cardName': [this.navParams.get('cardName'), [
           Validators.required,
           ValidateDuplicateCardName(this.edit, this.originalCardName, this.cardList),
           Validators.minLength(1),
           Validators.maxLength(30)
         ]
       ],
-      'displayName': [this.card.displayName, [
+      'displayName': [this.navParams.get('displayName'), [
           Validators.required,
           Validators.minLength(1),
           Validators.maxLength(70)
         ]
       ],
-      'email': [this.card.email, [
+      'email': [this.navParams.get('email'), [
           ValidateEmail,
           Validators.minLength(5),
           Validators.maxLength(255)
         ]
       ],
-      'cardType': [this.card.cardType, [Validators.required]]
+      'cardType': [this.navParams.get('cardType'), [Validators.required]]
     });
   }
 
@@ -113,6 +143,12 @@ export class CreateCardPage {
 
   deleteLabel(value, index) {
     this.inputs.splice(index, 1);
+    this.cardForm.removeControl(value);
+    if (value === 'address') {
+      this.cardForm.removeControl('city');
+      this.cardForm.removeControl('zip');
+      this.cardForm.removeControl('country'); 
+    }
   }
 
   openModal() {
@@ -125,11 +161,20 @@ export class CreateCardPage {
               data[index],
               new FormControl('', ExtraLabels[data[index]].validators));
           this.inputs.push(ExtraLabels[data[index]]);
-          if (ExtraLabels[data[index]].type === 'tel') {
+
+          if (ExtraLabels[data[index]].name === 'address') {
             this.cardForm
               .addControl(
-                'ext',
-                new FormControl('', Extension.validators));
+                'city',
+                new FormControl('', Address['city'].validators));
+            this.cardForm
+              .addControl(
+                'zip',
+                new FormControl('', Address['zip'].validators));
+            this.cardForm
+              .addControl(
+                'country',
+                new FormControl('', Address['country'].validators));
           }
         }
       }
