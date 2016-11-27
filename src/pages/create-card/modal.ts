@@ -44,11 +44,13 @@ export class ModalContentPage {
     public params: NavParams,
     public viewCtrl: ViewController,
     public formBuilder: FormBuilder) {
-    
+
     this.labelsForm = this.formBuilder.group({}, {validator: this.checkboxRequired});
     for (let prop in ExtraLabels) {
-      this.labelsForm.addControl(prop, new FormControl(false))
-      this.labels.push(ExtraLabels[prop])
+      if (params.get('labelsInUse').indexOf(prop) === -1) {
+        this.labelsForm.addControl(prop, new FormControl(false))
+        this.labels.push(ExtraLabels[prop])
+      }
     }
   }
 

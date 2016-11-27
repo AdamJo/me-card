@@ -39,6 +39,7 @@ export class CreateCardPage {
 
   cardList: Array<string> = [];
   originalCardName: string;
+  currentLabels: Array<string> = [];
 
   edit: boolean = false;
 
@@ -51,8 +52,6 @@ export class CreateCardPage {
     public navCtrl: NavController) {
 
     this.cardList = this.auth.cardNameList;
-
-
     this.edit = navParams.get('edit');
     this.tabBarElement = document.querySelector('.tabbar');
     this.originalCardName = navParams.get('cardName');
@@ -66,7 +65,7 @@ export class CreateCardPage {
     this.buildForm();
     if (this.navParams.get('edit')) {
       for (let prop in this.navParams.data) {
-        console.log(prop);
+        this.currentLabels.push(prop);
         this.card[prop] = this.navParams.get(prop);
         if (prop !== 'edit' && prop in ExtraLabels) {
           this.cardForm
@@ -94,7 +93,6 @@ export class CreateCardPage {
         }
       }
     }
-    console.log(this.card, this.cardForm);
     this.tabBarElement.style.display = 'none';
   }
 
@@ -152,7 +150,7 @@ export class CreateCardPage {
   }
 
   openModal() {
-    let modal = this.modalCtrl.create(ModalContentPage);
+    let modal = this.modalCtrl.create(ModalContentPage, { labelsInUse: this.currentLabels });
     modal.onDidDismiss(data => {
       if (data) {
         for (let index = 0, len = data.length; index < len; index++) {
