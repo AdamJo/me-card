@@ -8,6 +8,8 @@ export class SettingsService {
 
   constructor(public af:AngularFire, public storage: Storage) {}
 
+  createLabels() {}
+
   // get all user cards
   getCards():void {
     this.af.database
