@@ -22,7 +22,7 @@ export function ValidateDuplicateCardName(edit, originalName, cardList) {
         return null;
       }
     } else {
-      if (this.cardList.indexOf(c.value) !== -1) {
+      if (cardList.indexOf(c.value) !== -1) {
         return { validateDuplicateCardName: 'Duplicate Card Name' };
       } else {
         return null;
