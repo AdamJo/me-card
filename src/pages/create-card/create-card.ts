@@ -184,7 +184,7 @@ export class CreateCardPage {
   }
 
   backButton() {
-    // this.tabBarElement.style.display = 'block';
+    this.tabBarElement.style.display = 'flex';
     this.navCtrl.setRoot(AccountPage);
   }
 }
