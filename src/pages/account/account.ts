@@ -97,7 +97,9 @@ export class AccountPage {
       let keys = Object.keys(localCards);
       let allCards = []
       for (let index = 0, len = keys.length; index < len; index++) {
-        allCards.push(localCards[keys[index]]);
+        if (localCards[keys[index]]) {
+          allCards.push(localCards[keys[index]]);
+        }
       }
       this.cards = allCards;
       console.log(this.cards)
