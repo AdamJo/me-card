@@ -20,20 +20,18 @@
   </div>
   <ion-list>
     <h2 style="text-align: center;">View / Edit</h2>
-    <button 
-      *ngFor="let card of cards; let i = index;"
-      (click)="editCard(cards[i])"
-      ion-button block>
-      {{card.cardName}}
-    </button>
+    <div *ngFor="let card of cards; let i = index;">
     <ion-item>
-      <button
-        style="text-align: center;"
-        ion-item color="primary" (click)="createCard()"
-        block>
-        <ion-icon name="add"></ion-icon>
-        Create Card
+      <button 
+        (click)="editCard(cards[i])"
+        ion-button block>
+        {{card.cardName}}
       </button>
-    </ion-item>
+      <ion-icon item-right (click)="deleteCardAlert(card.cardName, i)" name="trash"></ion-icon>
+      </ion-item>
+    </div>
   </ion-list>
+  <ion-fab left bottom>
+    <button (click)="createCard()" ion-fab color="dark"><ion-icon name="create"></ion-icon></button>
+  </ion-fab>
 </ion-content>
