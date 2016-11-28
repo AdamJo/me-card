@@ -63,6 +63,7 @@ export class CreateCardPage {
 
   ngOnInit() {
     this.buildForm();
+    
     if (this.navParams.get('edit')) {
       for (let prop in this.navParams.data) {
         this.currentLabels.push(prop);
@@ -92,6 +93,12 @@ export class CreateCardPage {
           }
         }
       }
+    } else {
+      for (let prop in this.navParams.data) {
+        this.card[prop] = this.navParams.get(prop);
+        
+      }
+      this.card['cardType'] = 'business';
     }
     this.tabBarElement.style.display = 'none';
   }
@@ -133,10 +140,6 @@ export class CreateCardPage {
     }
     this.auth.saveCards(value);
     this.navCtrl.setRoot(AccountPage);
-  }
-
-  testForm() {
-    console.log(this.cardForm);
   }
 
   deleteLabel(value, index) {
