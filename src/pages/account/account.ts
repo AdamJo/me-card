@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 
 import { AuthService } from '../../shared/services/auth.service';
 
@@ -15,7 +15,7 @@ export class AccountPage {
   photoUrl:string;
   cards: Array<any> = [];
 
-  constructor(public navCtrl: NavController, public auth: AuthService) {}
+  constructor(public navCtrl: NavController, public auth: AuthService, public alertCtrl: AlertController) {}
 
   ngAfterViewInit() {
     this.getDisplayName();
@@ -54,16 +54,40 @@ export class AccountPage {
   }
 
   createCard() {
-    console.log(this.displayName);
     this.navCtrl.setRoot(
       CreateCardPage,
       {
         edit: false,
         email: this.email,
-        displayName: this.displayName
+        displayName: this.displayName,
+        cardType: 'business'
       });
   }
 
+  deleteCardAlert(cardName: string, index: number): void {
+    let confirm = this.alertCtrl.create({
+      title: 'Delete Card?',
+      message: `This will permentaly delete the card "${cardName}"`,
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('exit alert');
+          }
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            this.auth.deleteCard(cardName).remove().then(resolve => {
+              this.auth.getCardsFirebase();
+              this.cards.splice(index, 1);
+            })
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
   getFirebaseCards() {
     this.auth.getCardsFirebase();
   }
