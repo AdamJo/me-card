@@ -50,7 +50,6 @@ export class SideMenuPage {
     }
 
   ionViewDidLoad() {
-    console.log('Hello SideMenuPage Page');
   }
 
   openPage(page: PageInterface) {

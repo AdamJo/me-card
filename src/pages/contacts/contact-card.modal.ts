@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 
 import { Platform, NavParams, ViewController } from 'ionic-angular';
 
-import { CamelCaseToHeaderPipe } from '../../pipes/camel-case-to-header';
-
 @Component({
   template: `
     <ion-header>

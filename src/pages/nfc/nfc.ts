@@ -12,7 +12,6 @@ export class NFCPage implements OnInit  {
   constructor(public navCtrl: NavController) {}
 
   ionViewDidLoad() {
-    console.log('Hello NFCPage Page');
   }
 
   ngOnInit() {

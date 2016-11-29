@@ -9,7 +9,6 @@ export class SettingsPage {
   text: string;
 
   constructor() {
-    console.log('Hello Settings Component');
     this.text = 'Hello World';
   }
 }

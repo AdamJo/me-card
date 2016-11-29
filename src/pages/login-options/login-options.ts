@@ -10,7 +10,6 @@ export class LoginOptionsPage {
   constructor(public navCtrl: NavController) {}
 
   ionViewDidLoad() {
-    console.log('Hello LoginOptionsPage Page');
   }
 
 }

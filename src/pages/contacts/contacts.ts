@@ -27,7 +27,6 @@ export class ContactsPage {
     this.auth.loadLocalContacts().then(data => {
       this.contacts = data;
       this.allContacts = data;
-      console.log(this.contacts);
     })
     // this.auth.getContacts().subscribe(data => {
     //   this.contacts = data;
@@ -51,9 +50,7 @@ export class ContactsPage {
   }
 
   openContact(uid, displayName) {
-    console.log(uid);
     this.auth.getContactCards(uid).subscribe(data => {
-      console.log(data);
       let modal = this.modalCtrl.create(ContentModal, { cards: data, displayName: displayName });
       modal.present();
     });

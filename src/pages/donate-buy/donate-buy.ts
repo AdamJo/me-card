@@ -10,7 +10,6 @@ export class DonateBuyPage {
   constructor(public navCtrl: NavController) {}
 
   ionViewDidLoad() {
-    console.log('Hello DonateBuyPage Page');
   }
 
 }

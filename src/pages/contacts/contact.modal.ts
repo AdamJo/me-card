@@ -47,7 +47,6 @@ export class ContentModal {
 
     this.cards = params.get('cards');
     this.displayName = params.get('displayName');
-    console.log(this.cards);
   }
 
   openPrompt(index) {

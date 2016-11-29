@@ -72,7 +72,6 @@ export class AccountPage {
         {
           text: 'Cancel',
           handler: () => {
-            console.log('exit alert');
           }
         },
         {
@@ -102,7 +101,6 @@ export class AccountPage {
         }
       }
       this.cards = allCards;
-      console.log(this.cards)
     });
   }
 }

@@ -241,7 +241,6 @@ export class AuthService {
     mockData.forEach(data => {
       this.af.database.object(`/users/${data.uid}`).set(data)
     });
-    // console.log(`/contacts/${this.id}/${contacts[0].uid}/`);
     this.af.database.object(`/cards/${mockData[0].uid}/${mockCards0.cardName}`).set(mockCards0)
     this.af.database.object(`/cards/${mockData[1].uid}/${mockCards1[0].cardName}`).set(mockCards1[0])
     this.af.database.object(`/cards/${mockData[1].uid}/${mockCards1[1].cardName}`).set(mockCards1[1])
