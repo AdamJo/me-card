@@ -15,5 +15,13 @@
 
 
 <ion-content padding>
-  list of contacts - can click and grab user
+<ion-searchbar (ionInput)="getContacts($event)"></ion-searchbar>
+  <ion-list>
+    <ion-item (click)="openContact(contact.uid, contact.displayName)" *ngFor="let contact of contacts; let i = index">
+      <ion-thumbnail item-left>
+        <img [src]="contact.photoUrl" [alt]="contact.displayName">
+      </ion-thumbnail>
+      <h2>{{ contact.displayName}}</h2>
+    </ion-item>
+  </ion-list>
 </ion-content>
