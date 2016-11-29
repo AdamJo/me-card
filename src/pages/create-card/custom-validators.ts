@@ -1,4 +1,4 @@
-import { FormControl } from '@angular/forms';  
+import { FormControl, FormGroup } from '@angular/forms';  
 // http://blog.thoughtram.io/angular/2016/03/14/custom-validators-in-angular-2.html
 export function ValidateEmail(c: FormControl) {
   // http://emailregex.com/
@@ -30,3 +30,23 @@ export function ValidateDuplicateCardName(edit, originalName, cardList) {
     }
   }
 };
+
+export function CheckboxRequired(group: FormGroup) {
+  let  valid = false;
+
+  for (let checkboxName in group.controls) {
+    let val = group.controls[checkboxName].value;
+    if (val) {
+      valid = true;
+      break;
+    }
+  }
+
+  if (valid) {
+    return null;
+  }
+
+  return {
+    checkboxRequired: true
+  };
+}

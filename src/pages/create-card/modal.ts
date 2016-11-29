@@ -5,6 +5,8 @@ import { Platform, NavParams, ViewController } from 'ionic-angular';
 import { ExtraLabels } from './extra-labels'
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
+import { CheckboxRequired } from './custom-validators'
+
 @Component({
   template: `
     <ion-header>
@@ -45,7 +47,7 @@ export class ModalContentPage {
     public viewCtrl: ViewController,
     public formBuilder: FormBuilder) {
 
-    this.labelsForm = this.formBuilder.group({}, {validator: this.checkboxRequired});
+    this.labelsForm = this.formBuilder.group({}, {validator: CheckboxRequired});
     for (let prop in ExtraLabels) {
       if (params.get('labelsInUse').indexOf(prop) === -1) {
         this.labelsForm.addControl(prop, new FormControl(false))
