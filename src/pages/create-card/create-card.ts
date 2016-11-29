@@ -7,13 +7,13 @@ import { Card } from '../../shared/models/card.model'
 
 import { AuthService } from '../../shared/services/auth.service'
 
-import { ExtraLabels, Address } from './extra-labels';
+import { ExtraLabels, Address } from '../../shared/helpers/extra-labels';
 
-import { ModalContentPage } from './modal'
+import { CreateCardModal } from '../../modals/create-card.modal'
 
 import { AccountPage } from '../account/account'
 
-import { ValidateEmail, ValidateDuplicateCardName } from './custom-validators'
+import { ValidateEmail, ValidateDuplicateCardName } from '../../shared/helpers/custom-validators'
 
 @Component({
   selector: 'page-create-card',
@@ -153,7 +153,7 @@ export class CreateCardPage {
   }
 
   openModal() {
-    let modal = this.modalCtrl.create(ModalContentPage, { labelsInUse: this.currentLabels });
+    let modal = this.modalCtrl.create(CreateCardModal, { labelsInUse: this.currentLabels });
     modal.onDidDismiss(data => {
       if (data) {
         for (let index = 0, len = data.length; index < len; index++) {

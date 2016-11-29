@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 
 import { Platform, NavParams, ViewController } from 'ionic-angular';
 
-import { ExtraLabels } from './extra-labels'
+import { ExtraLabels } from '../shared/helpers/extra-labels'
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { CheckboxRequired } from './custom-validators'
+import { CheckboxRequired } from '../shared/helpers/custom-validators'
 
 @Component({
   template: `
@@ -37,7 +37,7 @@ import { CheckboxRequired } from './custom-validators'
     </ion-content>
   `
 })
-export class ModalContentPage {
+export class CreateCardModal {
   labels: Array<any> = [];
   labelsForm: FormGroup;
 

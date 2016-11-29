@@ -3,7 +3,7 @@ import { NavController, ModalController } from 'ionic-angular';
 
 import { AuthService } from '../../shared/services/auth.service';
 
-import { ContentModal } from './contact.modal'
+import { ContentModal } from '../../modals/contact.modal'
 
 @Component({
   selector: 'page-contacts',
