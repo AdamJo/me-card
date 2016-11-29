@@ -14,6 +14,10 @@ import { ContactsPage } from '../pages/contacts/contacts';
 import { LoginOptionsPage } from '../pages/login-options/login-options';
 import { CreateCardPage } from '../pages/create-card/create-card';
 import { ViewEditCardPage } from '../pages/view-edit-card/view-edit-card';
+import { ContentModal } from '../pages/contacts/contact.modal';
+import { ContactCardModal } from '../pages/contacts/contact-card.modal';
+
+import { CamelCaseToHeaderPipe } from '../pipes/camel-case-to-header' 
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { TabsLoggedOutPage } from '../pages/tabs-logged-out/tabs-logged-out';
@@ -51,7 +55,10 @@ const myFirebaseAuthConfig = {
     LoginOptionsPage,
     CreateCardPage,
     ViewEditCardPage,
-    ModalContentPage
+    ModalContentPage,
+    ContentModal,
+    ContactCardModal,
+    CamelCaseToHeaderPipe
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig ),
@@ -73,7 +80,9 @@ const myFirebaseAuthConfig = {
     LoginOptionsPage,
     CreateCardPage,
     ViewEditCardPage,
-    ModalContentPage
+    ModalContentPage,
+    ContentModal,
+    ContactCardModal
   ],
   providers: [AuthService, Storage]
 })
