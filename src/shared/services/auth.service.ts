@@ -169,4 +169,65 @@ export class AuthService {
       return value === true;
     });
   }
+  
+  loadMockData() {
+    let mockData = [
+        {
+          uid: 1234567890,
+          displayName: 'HAMMER',
+          email: 'space@hammer.com',
+          photoUrl: 'http://vignette1.wikia.nocookie.net/warhammer40k/images/e/e5/Space_Wolves_Livery.jpg/revision/latest?cb=20110305084412'
+        },
+        {
+          uid: 1234567891,
+          displayName: 'GREY',
+          email: 'grey@hammer.com',
+          photoUrl: 'http://vignette3.wikia.nocookie.net/warhammer40k/images/1/15/GK_Shoulder_Pauldron.jpg/revision/latest?cb=20161118015332'
+        }
+      ]
+    let mockCards0 = {
+      cardName: 'My Hammer',
+      cardType: 'personal',
+      displayName: 'SPACE GUY',
+      email: 'space@hammer.com',
+    }
+
+    let mockCards1 = [
+      {
+        cardName: 'The Grey',
+        cardType: 'business',
+        displayName: 'Grey Guy',
+        email: 'grey@hammer.com',
+      },
+      {
+        cardName: 'Grey',
+        cardType: 'personal',
+        displayName: 'Grey Guy',
+        email: 'grey@hammer.com',
+      }
+    ]
+
+    let contacts = [
+        {
+          uid: 1234567890,
+          displayName: 'HAMMER',
+          photoUrl: 'http://vignette1.wikia.nocookie.net/warhammer40k/images/e/e5/Space_Wolves_Livery.jpg/revision/latest?cb=20110305084412'
+        },
+        {
+          uid: 1234567891,
+          displayName: 'GREY',
+          photoUrl: 'http://vignette3.wikia.nocookie.net/warhammer40k/images/1/15/GK_Shoulder_Pauldron.jpg/revision/latest?cb=20161118015332'
+        }
+      ]
+
+    mockData.forEach(data => {
+      this.af.database.object(`/users/${data.uid}`).set(data)
+    });
+    // console.log(`/contacts/${this.id}/${contacts[0].uid}/`);
+    this.af.database.object(`/cards/${mockData[0].uid}/${mockCards0.cardName}`).set(mockCards0)
+    this.af.database.object(`/cards/${mockData[1].uid}/${mockCards1[0].cardName}`).set(mockCards1[0])
+    this.af.database.object(`/cards/${mockData[1].uid}/${mockCards1[1].cardName}`).set(mockCards1[1])
+    this.af.database.object(`/contacts/xT9QF8fXN2W2JgAq6EGgmDifMVA2/${contacts[0].uid}/`).set(contacts[0])
+    this.af.database.object(`/contacts/xT9QF8fXN2W2JgAq6EGgmDifMVA2/${contacts[1].uid}/`).set(contacts[1])
+  }
 }
