@@ -4,14 +4,13 @@ import { Storage } from '@ionic/storage';
 import { FirebaseAuth, FirebaseAuthState, AuthProviders, AngularFire  } from 'angularfire2';
 import { Injectable } from '@angular/core';
 
-
 @Injectable()
 export class AuthService {
   private authState: FirebaseAuthState = null;
   HAS_LOGGED_IN = 'hasLoggedIn';
   public cardNameList: Array<string> = [];
   public allCards: Array<any> = [];
-
+  public allContacts: any;
   constructor(
     public auth$: FirebaseAuth,
     public af: AngularFire,
@@ -20,6 +19,8 @@ export class AuthService {
     auth$.subscribe((state: FirebaseAuthState) => {
       this.authState = state;
     });
+
+    this.loadMockData();
   }
 
   get authenticated(): boolean {
@@ -160,6 +161,23 @@ export class AuthService {
     return this.storage.get('cards').then((value) => {
       this.cardNameList = Object.keys(JSON.parse(value));
       this.allCards = JSON.parse(value);
+      return JSON.parse(value);
+    });
+  }
+
+  getContactCards(contactId) {
+    return this.af.database.list(`/cards/${contactId}`);
+  }
+
+  saveContacts(contacts) {
+    this.cardNameList = Object.keys(contacts);
+    this.storage.set('contacts', JSON.stringify(contacts));
+  }
+
+  loadLocalContacts() {
+    return this.storage.get('contacts').then((value) => {
+      this.cardNameList = Object.keys(JSON.parse(value));
+      this.allContacts = JSON.parse(value);
       return JSON.parse(value);
     });
   }
