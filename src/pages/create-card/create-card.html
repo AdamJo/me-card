@@ -35,7 +35,7 @@
           "Required"
             : cardForm.controls['cardName'].errors['maxlength'] ? 
               "Max Length 30" 
-              : "Required"}} 
+              : "Required"}}
       </ion-label>
       <ion-label floating style="color: red;" 
         *ngIf="cardForm.controls['cardName'].errors?.validateDuplicateCardName">
