@@ -26,6 +26,7 @@ export class AccountPage {
   ionViewWillEnter() {
     this.loadCards();
   }
+
   getDisplayName() {
     this.auth.getDisplayName().then((displayName) => {
       this.displayName = displayName;
@@ -86,10 +87,6 @@ export class AccountPage {
       ]
     });
     confirm.present();
-  }
-
-  getFirebaseCards() {
-    this.auth.getCardsFirebase();
   }
 
   loadCards() {

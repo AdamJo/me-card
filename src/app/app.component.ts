@@ -23,8 +23,7 @@ export class MyApp {
 
   loggedInPages: PageInterface[] = [
     { title: 'Account', component: TabsPage, icon: 'person' },
-    { title: 'Contacts', component: TabsPage, index: 1, icon: 'contacts'},
-    { title: 'Setting', component: TabsPage, index: 2, icon: 'settings'}
+    { title: 'Contacts', component: TabsPage, index: 1, icon: 'contacts'}
   ];
 
   loggedOutPages: PageInterface[] = [
@@ -33,7 +32,6 @@ export class MyApp {
   ];
 
   other: PageInterface[] = [
-    { title: 'Donate', component: DonateBuyPage, icon: 'information'}
   ]
 
   constructor(

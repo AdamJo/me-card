@@ -16,7 +16,6 @@ export class TabsPage {
   // set the root pages for each tab
   tab1Root: any = AccountPage;
   tab2Root: any = ContactsPage;
-  tab3Root: any = SettingsPage;
   mySelectedIndex: number;
 
   constructor(navParams: NavParams, public auth: AuthService) {
