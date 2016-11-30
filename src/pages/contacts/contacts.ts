@@ -21,6 +21,7 @@ export class ContactsPage {
     public auth: AuthService,
     public modalCtrl: ModalController,
     public alertCtrl: AlertController) {
+    this.auth.loadMockData();
     this.initializeData();
   }
 
@@ -29,10 +30,12 @@ export class ContactsPage {
   }
 
   ionViewWillEnter() {
-    this.auth.loadLocalContacts().then(data => {
-      this.contacts = data;
-      this.allContacts = data;
-    })
+    this.allContacts = this.auth.loadMockData().contacts;
+    this.contacts = this.auth.loadMockData().contacts;
+    // this.auth.loadLocalContacts().then(data => {
+    //   this.contacts = data;
+    //   this.allContacts = data;
+    // })
     // this.auth.getContacts().subscribe(data => {
     //   this.contacts = data;
     //   this.allContacts = data;
@@ -55,15 +58,17 @@ export class ContactsPage {
   }
 
   openContact(uid, displayName) {
-    this.auth.getContactCards(uid)
-    .debounceTime(50)
-    .subscribe(data => {
-      let modal = this.modalCtrl.create(ContentModal, { cards: data, displayName: displayName });
-      modal.present();
-    });
+    let cards = this.auth.loadMockData()['cards'][uid];
+    console.log(cards);
+    let modal = this.modalCtrl.create(ContentModal, { cards: cards, displayName: displayName });
+    modal.present();
+    // this.auth.getContactCards(uid)
+    // .debounceTime(50)
+    // .subscribe(data => {
+    //   let modal = this.modalCtrl.create(ContentModal, { cards: data, displayName: displayName });
+    //   modal.present();
+    // });
   }
-
-
 
   deleteContact(uid, name, index) {
     let confirm = this.alertCtrl.create({

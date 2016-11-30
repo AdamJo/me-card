@@ -19,7 +19,6 @@ export class AuthService {
     auth$.subscribe((state: FirebaseAuthState) => {
       this.authState = state;
     });
-
     this.loadMockData();
   }
 
@@ -46,20 +45,19 @@ export class AuthService {
     return this.auth$.login({provider})
       .then((loggedIn) => {
         this.storage.set(this.HAS_LOGGED_IN, true);
-        this.af.database.object(`/users/${this.id}`).update(
-          {
-            displayName: loggedIn.auth.displayName,
-            email: loggedIn.auth.email,
-            photoUrl: loggedIn.auth.photoURL,
-            providerId: loggedIn.auth.providerId
-          }
-        );
+        // this.af.database.object(`/users/${this.id}`).update(
+        //   {
+        //     displayName: loggedIn.auth.displayName,
+        //     email: loggedIn.auth.email,
+        //     photoUrl: loggedIn.auth.photoURL,
+        //     providerId: loggedIn.auth.providerId
+        //   }
+        // );
         this.setDisplayName(loggedIn.auth.displayName);
         this.setId(loggedIn.auth.uid);
         this.setEmail(loggedIn.auth.email);
         this.setPhotoUrl(loggedIn.auth.photoURL);
         this.setStuff();
-
       })
       .catch(error => console.log('ERROR @ AuthService#login() :', error));
   }
@@ -191,64 +189,71 @@ export class AuthService {
       return value === true;
     });
   }
-  
+
   loadMockData() {
     let mockData = [
         {
           uid: 1234567890,
-          displayName: 'HAMMER',
+          displayName: 'Space Wolves',
           email: 'space@hammer.com',
-          photoUrl: 'http://vignette1.wikia.nocookie.net/warhammer40k/images/e/e5/Space_Wolves_Livery.jpg/revision/latest?cb=20110305084412'
+          photoUrl: 'assets/img/Space_Wolves.jpg'
         },
         {
           uid: 1234567891,
-          displayName: 'GREY',
+          displayName: 'Grey Knights',
           email: 'grey@hammer.com',
-          photoUrl: 'http://vignette3.wikia.nocookie.net/warhammer40k/images/1/15/GK_Shoulder_Pauldron.jpg/revision/latest?cb=20161118015332'
+          photoUrl: 'assets/img/Grey_Knights.jpg'
         }
       ]
-    let mockCards0 = {
-      cardName: 'My Hammer',
+    let mockCards0 = [{
+      cardName: 'Space Wolves',
       cardType: 'personal',
       displayName: 'SPACE GUY',
       email: 'space@hammer.com',
-    }
+    }]
 
     let mockCards1 = [
       {
-        cardName: 'The Grey',
+        cardName: 'Grey Inc.',
         cardType: 'business',
         displayName: 'Grey Guy',
         email: 'grey@hammer.com',
       },
       {
-        cardName: 'Grey',
+        cardName: 'Grey Corp.',
         cardType: 'personal',
         displayName: 'Grey Guy',
         email: 'grey@hammer.com',
       }
     ]
 
+    let cards = {
+      1234567890: mockCards0,
+      1234567891: mockCards1
+    }
+
     let contacts = [
         {
           uid: 1234567890,
-          displayName: 'HAMMER',
-          photoUrl: 'http://vignette1.wikia.nocookie.net/warhammer40k/images/e/e5/Space_Wolves_Livery.jpg/revision/latest?cb=20110305084412'
+          displayName: 'Space Wolves',
+          photoUrl: 'assets/img/Space_Wolves.jpg'
         },
         {
           uid: 1234567891,
-          displayName: 'GREY',
-          photoUrl: 'http://vignette3.wikia.nocookie.net/warhammer40k/images/1/15/GK_Shoulder_Pauldron.jpg/revision/latest?cb=20161118015332'
+          displayName: 'Grey Knights',
+          photoUrl: 'assets/img/Grey_Knights.jpg'
         }
       ]
 
-    mockData.forEach(data => {
-      this.af.database.object(`/users/${data.uid}`).set(data)
-    });
-    this.af.database.object(`/cards/${mockData[0].uid}/${mockCards0.cardName}`).set(mockCards0)
-    this.af.database.object(`/cards/${mockData[1].uid}/${mockCards1[0].cardName}`).set(mockCards1[0])
-    this.af.database.object(`/cards/${mockData[1].uid}/${mockCards1[1].cardName}`).set(mockCards1[1])
-    this.af.database.object(`/contacts/xT9QF8fXN2W2JgAq6EGgmDifMVA2/${contacts[0].uid}/`).set(contacts[0])
-    this.af.database.object(`/contacts/xT9QF8fXN2W2JgAq6EGgmDifMVA2/${contacts[1].uid}/`).set(contacts[1])
+    // mockData.forEach(data => {
+    //   this.af.database.object(`/users/${data.uid}`).set(data)
+    // });
+    // this.af.database.object(`/cards/${mockData[0].uid}/${mockCards0.cardName}`).set(mockCards0)
+    // this.af.database.object(`/cards/${mockData[1].uid}/${mockCards1[0].cardName}`).set(mockCards1[0])
+    // this.af.database.object(`/cards/${mockData[1].uid}/${mockCards1[1].cardName}`).set(mockCards1[1])
+    // this.af.database.object(`/contacts/xT9QF8fXN2W2JgAq6EGgmDifMVA2/${contacts[0].uid}/`).set(contacts[0])
+    // this.af.database.object(`/contacts/xT9QF8fXN2W2JgAq6EGgmDifMVA2/${contacts[1].uid}/`).set(contacts[1])
+
+    return { contacts: contacts, cards: cards};
   }
 }
