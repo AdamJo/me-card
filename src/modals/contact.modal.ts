@@ -26,7 +26,7 @@ import { ContactCardModal } from './contact-card.modal'
         <div *ngFor="let card of cards; let i = index;">
           <ion-item (click)="openPrompt(i)">
             <button ion-button block >
-              {{card.displayName}}
+              {{card.cardName}}
             </button>
           </ion-item>
         </div>
