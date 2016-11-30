@@ -45,8 +45,6 @@ export class ContactCardModal {
     this.card = params.get('card');
     this.displayName = this.card['displayname']
     let keys = Object.keys(this.card);
-    keys.pop();
-    keys.pop();
     this.cardKeys = keys;
   }
 
