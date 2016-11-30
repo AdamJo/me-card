@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, AlertController } from 'ionic-angular';
 
 import { AuthService } from '../../shared/services/auth.service';
 
@@ -16,7 +16,11 @@ export class ContactsPage {
   contacts = [];
   allContacts = [];
 
-  constructor(public navCtrl: NavController, public auth: AuthService, public modalCtrl: ModalController) {
+  constructor(
+    public navCtrl: NavController,
+    public auth: AuthService,
+    public modalCtrl: ModalController,
+    public alertCtrl: AlertController) {
     this.initializeData();
   }
 
@@ -57,5 +61,31 @@ export class ContactsPage {
       let modal = this.modalCtrl.create(ContentModal, { cards: data, displayName: displayName });
       modal.present();
     });
+  }
+
+
+
+  deleteContact(uid, name, index) {
+    let confirm = this.alertCtrl.create({
+      title: 'Delete Contact?',
+      message: `This will permentaly delete the contact: ${name}`,
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            this.auth.deleteContacts(uid).remove().then(resolve => {
+              this.contacts.splice(index, 1);
+              this.auth.saveContacts(this.contacts);
+            })
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 }

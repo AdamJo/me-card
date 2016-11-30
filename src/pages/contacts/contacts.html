@@ -16,11 +16,18 @@
 <ion-content padding>
 <ion-searchbar (ionInput)="getContacts($event)"></ion-searchbar>
   <ion-list>
-    <ion-item (click)="openContact(contact.uid, contact.displayName)" *ngFor="let contact of contacts; let i = index">
-      <ion-thumbnail item-left>
-        <img [src]="contact.photoUrl" [alt]="contact.displayName">
-      </ion-thumbnail>
-      <h2>{{ contact.displayName}}</h2>
-    </ion-item>
+    <div 
+      *ngFor="let contact of contacts; let i = index"
+      class="my-items">
+      <ion-item (click)="openContact(contact.uid, contact.displayName)">
+        <ion-thumbnail item-left>
+          <img [src]="contact.photoUrl" [alt]="contact.displayName">
+        </ion-thumbnail>
+        <ion-label>
+          {{ contact.displayName}}
+        </ion-label>
+      </ion-item>
+      <ion-icon (click)="deleteContact(contact.uid, contact.displayName, i)" item-right name="trash"></ion-icon>
+    </div>
   </ion-list>
 </ion-content>

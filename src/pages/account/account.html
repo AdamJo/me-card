@@ -21,13 +21,13 @@
   <ion-list>
     <h2 style="text-align: center;">View / Edit</h2>
     <div *ngFor="let card of cards; let i = index;">
-    <ion-item>
-      <button 
-        (click)="editCard(cards[i])"
-        ion-button block>
-        {{card.cardName}}
-      </button>
-      <ion-icon item-right (click)="deleteCardAlert(card.cardName, i)" name="trash"></ion-icon>
+      <ion-item>
+        <button 
+          (click)="editCard(cards[i])"
+          ion-button block>
+          {{card.cardName}}
+        </button>
+        <ion-icon item-right (click)="deleteCardAlert(card.cardName, i)" name="trash"></ion-icon>
       </ion-item>
     </div>
   </ion-list>

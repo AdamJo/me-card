@@ -182,6 +182,10 @@ export class AuthService {
     });
   }
 
+  deleteContacts(contactId) {
+    return this.af.database.object(`contacts/${this.id}/${contactId}`);
+  }
+
   hasLoggedIn() {
     return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
       return value === true;

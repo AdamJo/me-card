@@ -1,3 +1,18 @@
 page-contacts {
 
 }
+
+.my-items {
+  display: flex;
+  align-items: center;
+}
+
+ion-item {
+  width: 80%;
+}
+
+ion-icon {
+  font-size: 3.0rem;
+  width: 40px;
+  padding-left: 10px;
+}

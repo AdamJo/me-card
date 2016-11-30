@@ -87,6 +87,7 @@ export class AccountPage {
     });
     confirm.present();
   }
+
   getFirebaseCards() {
     this.auth.getCardsFirebase();
   }
