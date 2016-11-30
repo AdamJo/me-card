@@ -34,6 +34,7 @@ import { ContactCardModal } from './contact-card.modal'
     </ion-content>
   `
 })
+
 export class ContentModal {
 
   cards: any;

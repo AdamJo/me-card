@@ -5,6 +5,8 @@ import { AuthService } from '../../shared/services/auth.service';
 
 import { ContentModal } from '../../modals/contact.modal'
 
+import 'rxjs/add/operator/debounceTime';
+
 @Component({
   selector: 'page-contacts',
   templateUrl: 'contacts.html'
@@ -13,7 +15,6 @@ export class ContactsPage {
 
   contacts = [];
   allContacts = [];
-
 
   constructor(public navCtrl: NavController, public auth: AuthService, public modalCtrl: ModalController) {
     this.initializeData();
@@ -50,7 +51,9 @@ export class ContactsPage {
   }
 
   openContact(uid, displayName) {
-    this.auth.getContactCards(uid).subscribe(data => {
+    this.auth.getContactCards(uid)
+    .debounceTime(50)
+    .subscribe(data => {
       let modal = this.modalCtrl.create(ContentModal, { cards: data, displayName: displayName });
       modal.present();
     });
