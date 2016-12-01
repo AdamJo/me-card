@@ -59,7 +59,6 @@ export class ContactsPage {
 
   openContact(uid, displayName) {
     let cards = this.auth.loadMockData()['cards'][uid];
-    console.log(cards);
     let modal = this.modalCtrl.create(ContentModal, { cards: cards, displayName: displayName });
     modal.present();
     // this.auth.getContactCards(uid)

@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 
 import { AccountPage } from '../account/account';
-import { SettingsPage } from '../settings/settings';
 import { ContactsPage } from '../contacts/contacts';
 
 import { AuthService } from '../../shared/services/auth.service'

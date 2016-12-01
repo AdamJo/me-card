@@ -4,8 +4,10 @@ import { Platform, NavController } from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs'; 
 
+
 import { AuthService } from '../../shared/services/auth.service';
 import { PageInterface } from '../../shared/models/page-interface.model'
+
 
 @Component({
   selector: 'page-home',

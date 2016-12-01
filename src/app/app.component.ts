@@ -5,12 +5,9 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { PageInterface } from '../shared/models/page-interface.model';
 import { AuthService } from '../shared/services/auth.service';
 
-import { DonateBuyPage } from '../pages/donate-buy/donate-buy';
-
 import { HomePage } from '../pages/home/home';
 
 import { TabsPage } from '../pages/tabs/tabs';
-import { TabsLoggedOutPage } from '../pages/tabs-logged-out/tabs-logged-out';
 
 @Component({
   templateUrl: 'app.component.html'
@@ -27,8 +24,7 @@ export class MyApp {
   ];
 
   loggedOutPages: PageInterface[] = [
-    { title: 'Home', component: TabsLoggedOutPage, icon: 'home'},
-    { title: 'About', component: TabsLoggedOutPage, index: 1, icon: 'information'}
+    { title: 'Home', component: HomePage, icon: 'home'}
   ];
 
   other: PageInterface[] = [

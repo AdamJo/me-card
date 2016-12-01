@@ -191,20 +191,20 @@ export class AuthService {
   }
 
   loadMockData() {
-    let mockData = [
-        {
-          uid: 1234567890,
-          displayName: 'Space Wolves',
-          email: 'space@hammer.com',
-          photoUrl: 'assets/img/Space_Wolves.jpg'
-        },
-        {
-          uid: 1234567891,
-          displayName: 'Grey Knights',
-          email: 'grey@hammer.com',
-          photoUrl: 'assets/img/Grey_Knights.jpg'
-        }
-      ]
+    // let mockData = [
+    //     {
+    //       uid: 1234567890,
+    //       displayName: 'Space Wolves',
+    //       email: 'space@hammer.com',
+    //       photoUrl: 'assets/img/Space_Wolves.jpg'
+    //     },
+    //     {
+    //       uid: 1234567891,
+    //       displayName: 'Grey Knights',
+    //       email: 'grey@hammer.com',
+    //       photoUrl: 'assets/img/Grey_Knights.jpg'
+    //     }
+    //   ]
     let mockCards0 = [{
       cardName: 'Space Wolves',
       cardType: 'personal',
