@@ -1,0 +1,1 @@
+A small project to mess around with Ionic 2 and NFC tags.
