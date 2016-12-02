@@ -29,7 +29,7 @@
     </ion-item>
     <ion-item>
       <ion-label floating style="color: red;" 
-        *ngIf="cardForm.controls['cardName'].errors && !cardForm.controls['cardName'].errors?.validateDuplicateCardName">
+        *ngIf="cardForm.controls['cardName'].errors && !cardForm.controls['cardName'].hasError('validateDuplicateCardName')">
         User Display Name: 
         {{cardForm.controls['cardName'].errors['required'] ? 
           "Required"
@@ -38,8 +38,8 @@
               : "Required"}}
       </ion-label>
       <ion-label floating style="color: red;" 
-        *ngIf="cardForm.controls['cardName'].errors?.validateDuplicateCardName">
-        User Display Name: {{cardForm.controls['cardName'].errors?.validateDuplicateCardName}}
+        *ngIf="cardForm.controls['cardName'].hasError('validateDuplicateCardName')">
+        User Display Name: {{cardForm.controls['cardName'].hasError('validateDuplicateCardName')}}
       </ion-label>
       <ion-label floating *ngIf="!cardForm.controls['cardName'].errors">Card Display Name</ion-label>
       <ion-input type="text" formControlName="cardName" [value]="card.cardName"></ion-input>
