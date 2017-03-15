@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { IonicStorageModule } from '@ionic/storage';
 import { HomePage } from '../pages/home/home';
 import { NFCPage } from '../pages/nfc/nfc';
 import { AccountPage } from '../pages/account/account';
@@ -52,6 +51,7 @@ const myFirebaseAuthConfig = {
   imports: [
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig ),
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     ReactiveFormsModule
   ],
   bootstrap: [IonicApp],
@@ -67,7 +67,7 @@ const myFirebaseAuthConfig = {
     ContentModal,
     ContactCardModal
   ],
-  providers: [AuthService, Storage]
+  providers: [AuthService, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 
 export class AppModule {}
