@@ -151,13 +151,17 @@ export class AuthService {
   }
 
   saveCardsLocally(cards: any[]) {
-    this.cardNameList = Object.keys(cards);
+    if (cards) {
+      this.cardNameList = Object.keys(cards);
+    }
     this.storage.set('cards', JSON.stringify(cards));
   }
 
   loadLocalCards() {
     return this.storage.get('cards').then((value) => {
-      this.cardNameList = Object.keys(JSON.parse(value));
+      if (value) {
+        this.cardNameList = Object.keys(JSON.parse(value));
+      }
       this.allCards = JSON.parse(value);
       return JSON.parse(value);
     });
@@ -168,13 +172,17 @@ export class AuthService {
   }
 
   saveContacts(contacts) {
-    this.cardNameList = Object.keys(contacts);
+    if (contacts) {
+      this.cardNameList = Object.keys(contacts);
+    }
     this.storage.set('contacts', JSON.stringify(contacts));
   }
 
   loadLocalContacts() {
     return this.storage.get('contacts').then((value) => {
-      this.cardNameList = Object.keys(JSON.parse(value));
+      if (value) {
+        this.cardNameList = Object.keys(JSON.parse(value));
+      }
       this.allContacts = JSON.parse(value);
       return JSON.parse(value);
     });

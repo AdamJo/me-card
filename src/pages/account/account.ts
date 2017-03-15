@@ -91,7 +91,12 @@ export class AccountPage {
 
   loadCards() {
     this.auth.loadLocalCards().then((localCards) => {
-      let keys = Object.keys(localCards);
+      let keys;
+      if (localCards) {
+        keys = Object.keys(localCards);
+      } else {
+        keys = [];
+      }
       let allCards = []
       for (let index = 0, len = keys.length; index < len; index++) {
         if (localCards[keys[index]]) {
